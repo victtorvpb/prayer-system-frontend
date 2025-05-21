@@ -15,12 +15,12 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../components/AuthCard";
+import { useAuth } from "../../hooks/useAuth";
+import LanguageSelector from "../../components/LanguageSelector";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../../hooks/useAuth";
-import LanguageSelector from "../../components/LanguageSelector";
 
 interface LoginForm {
   email: string;
