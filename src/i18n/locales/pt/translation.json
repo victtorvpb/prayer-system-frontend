@@ -1,0 +1,81 @@
+{
+  "app": {
+    "title": "Sistema de Oração"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "forgotPassword": "Esqueci minha senha",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "name": "Nome",
+    "logout": "Sair",
+    "submit": "Enviar",
+    "backToLogin": "Voltar para o login",
+    "resetPassword": "Redefinir senha",
+    "resetPasswordSuccess": "Senha redefinida com sucesso",
+    "resetPasswordError": "Erro ao redefinir senha",
+    "loginSuccess": "Login realizado com sucesso",
+    "loginError": "Erro ao realizar login",
+    "registerSuccess": "Cadastro realizado com sucesso",
+    "registerError": "Erro ao realizar cadastro"
+  },
+  "profile": {
+    "title": "Perfil",
+    "edit": "Editar perfil",
+    "save": "Salvar alterações",
+    "cancel": "Cancelar"
+  },
+  "home": {
+    "welcome": "Bem-vindo!"
+  },
+  "nav": {
+    "menu": "Menu Principal",
+    "home": "Início",
+    "prayers": "Orações",
+    "community": "Comunidade",
+    "prayerGroups": "Grupos de Oração",
+    "events": "Eventos",
+    "about": "Sobre"
+  },
+  "login": {
+    "title": "Login",
+    "email": "E-mail",
+    "password": "Senha",
+    "forgot": "Esqueci minha senha",
+    "submit": "Entrar",
+    "noAccount": "Não tem uma conta?",
+    "create": "Criar conta",
+    "required": "Campo obrigatório",
+    "invalidEmail": "E-mail inválido",
+    "minPassword": "Mínimo 6 caracteres",
+    "mockSuccess": "Login realizado com sucesso!",
+    "mockError": "E-mail ou senha inválidos."
+  },
+  "register": {
+    "title": "Criar conta",
+    "name": "Nome",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirm": "Confirmar senha",
+    "submit": "Cadastrar",
+    "already": "Já tem uma conta?",
+    "back": "Voltar ao login",
+    "required": "Campo obrigatório",
+    "invalidEmail": "E-mail inválido",
+    "minPassword": "Mínimo 6 caracteres",
+    "notMatch": "As senhas não coincidem",
+    "mockSuccess": "Cadastro realizado! Você já pode fazer login."
+  },
+  "forgot": {
+    "title": "Esqueci minha senha",
+    "info": "Informe seu e-mail para receber instruções de redefinição de senha.",
+    "email": "E-mail",
+    "submit": "Enviar instruções",
+    "back": "Voltar ao login",
+    "required": "Campo obrigatório",
+    "invalidEmail": "E-mail inválido",
+    "mockSuccess": "Se o e-mail existir, você receberá as instruções em instantes."
+  }
+}

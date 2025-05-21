@@ -1,0 +1,81 @@
+{
+  "app": {
+    "title": "Sistema de Oración"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "forgotPassword": "Olvidé mi contraseña",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "name": "Nombre",
+    "logout": "Cerrar sesión",
+    "submit": "Enviar",
+    "backToLogin": "Volver al inicio de sesión",
+    "resetPassword": "Restablecer contraseña",
+    "resetPasswordSuccess": "Contraseña restablecida con éxito",
+    "resetPasswordError": "Error al restablecer la contraseña",
+    "loginSuccess": "Inicio de sesión exitoso",
+    "loginError": "Error al iniciar sesión",
+    "registerSuccess": "Registro exitoso",
+    "registerError": "Error al registrarse"
+  },
+  "profile": {
+    "title": "Perfil",
+    "edit": "Editar perfil",
+    "save": "Guardar cambios",
+    "cancel": "Cancelar"
+  },
+  "home": {
+    "welcome": "¡Bienvenido!"
+  },
+  "nav": {
+    "menu": "Menú Principal",
+    "home": "Inicio",
+    "prayers": "Oraciones",
+    "community": "Comunidad",
+    "prayerGroups": "Grupos de Oración",
+    "events": "Eventos",
+    "about": "Acerca de"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgot": "¿Olvidaste tu contraseña?",
+    "submit": "Entrar",
+    "noAccount": "¿No tienes una cuenta?",
+    "create": "Crear cuenta",
+    "required": "Campo obligatorio",
+    "invalidEmail": "Correo inválido",
+    "minPassword": "Mínimo 6 caracteres",
+    "mockSuccess": "¡Inicio de sesión exitoso!",
+    "mockError": "Correo o contraseña inválidos."
+  },
+  "register": {
+    "title": "Crear cuenta",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm": "Confirmar contraseña",
+    "submit": "Registrarse",
+    "already": "¿Ya tienes una cuenta?",
+    "back": "Volver al inicio de sesión",
+    "required": "Campo obligatorio",
+    "invalidEmail": "Correo inválido",
+    "minPassword": "Mínimo 6 caracteres",
+    "notMatch": "Las contraseñas no coinciden",
+    "mockSuccess": "¡Registro exitoso! Ya puedes iniciar sesión."
+  },
+  "forgot": {
+    "title": "Olvidé mi contraseña",
+    "info": "Ingresa tu correo para recibir instrucciones de restablecimiento.",
+    "email": "Correo electrónico",
+    "submit": "Enviar instrucciones",
+    "back": "Volver al inicio de sesión",
+    "required": "Campo obligatorio",
+    "invalidEmail": "Correo inválido",
+    "mockSuccess": "Si el correo existe, recibirás las instrucciones pronto."
+  }
+}

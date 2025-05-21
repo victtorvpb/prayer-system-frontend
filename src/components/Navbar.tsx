@@ -11,11 +11,11 @@ import {
   ListItemText,
   Collapse,
   useTheme,
-  useMediaQuery,
   Divider,
   Avatar,
   Menu,
   MenuItem,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -25,6 +25,8 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 interface NavItem {
   label: string;
@@ -33,16 +35,16 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  { label: "Início", href: "/" },
-  { label: "Orações", href: "/oracoes" },
+  { label: "nav.home", href: "/" },
+  { label: "nav.prayers", href: "/oracoes" },
   {
-    label: "Comunidade",
+    label: "nav.community",
     children: [
-      { label: "Grupos de Oração", href: "/grupos" },
-      { label: "Eventos", href: "/eventos" },
+      { label: "nav.prayerGroups", href: "/grupos" },
+      { label: "nav.events", href: "/eventos" },
     ],
   },
-  { label: "Sobre", href: "/sobre" },
+  { label: "nav.about", href: "/sobre" },
 ];
 
 const drawerWidth = 240;
@@ -55,6 +57,9 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const { t } = useTranslation();
+
+  const drawerWidth = 240;
 
   // Estado do menu de perfil
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -95,7 +100,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
           p: 3,
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
         <Typography
@@ -107,7 +112,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
             letterSpacing: 1,
           }}
         >
-          Sistema de Oração
+          {t("nav.menu")}
         </Typography>
       </Box>
       <Divider sx={{ mb: 1 }} />
@@ -124,12 +129,13 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                   color: "text.primary",
                   fontWeight: 500,
                   transition: "background 0.2s",
+                  justifyContent: "flex-start",
                   "&:hover": {
                     backgroundColor: theme.palette.action.hover,
                   },
                 }}
               >
-                <ListItemText primary={item.label} />
+                <ListItemText primary={t(item.label)} />
                 {openSubmenu === item.label ? (
                   <ExpandLessIcon />
                 ) : (
@@ -146,7 +152,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                     <ListItemButton
                       key={child.label}
                       component={Link}
-                      to={child.href}
+                      to={child.href || "#"}
                       sx={{
                         pl: 5,
                         borderRadius: 2,
@@ -167,7 +173,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                         },
                       }}
                     >
-                      <ListItemText primary={child.label} />
+                      <ListItemText primary={t(child.label)} />
                     </ListItemButton>
                   ))}
                 </List>
@@ -177,7 +183,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
             <ListItemButton
               key={item.label}
               component={Link}
-              to={item.href}
+              to={item.href || "#"}
               sx={{
                 borderRadius: 2,
                 mx: 1,
@@ -190,12 +196,13 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                     : "transparent",
                 fontWeight: activeRoute === item.href ? 700 : 500,
                 transition: "background 0.2s",
+                justifyContent: "flex-start",
                 "&:hover": {
                   backgroundColor: theme.palette.action.hover,
                 },
               }}
             >
-              <ListItemText primary={item.label} />
+              <ListItemText primary={t(item.label)} />
             </ListItemButton>
           )
         )}
@@ -214,36 +221,27 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
       {/* Drawer lateral */}
       <Box
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{
+          width: { md: drawerWidth },
+          flexShrink: { md: 0 },
+        }}
         aria-label="menu lateral"
       >
-        {/* Drawer mobile */}
+        {/* Drawer permanente para desktop */}
         <Drawer
-          variant="temporary"
-          open={mobileOpen}
+          variant={isMobile ? "temporary" : "permanent"}
+          open={isMobile ? mobileOpen : true}
           onClose={handleDrawerToggle}
           ModalProps={{ keepMounted: true }}
           sx={{
-            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              borderRight: isMobile
+                ? "none"
+                : `1px solid ${theme.palette.divider}`,
             },
           }}
-        >
-          {drawer}
-        </Drawer>
-        {/* Drawer fixo desktop */}
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", md: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-          open
         >
           {drawer}
         </Drawer>
@@ -253,7 +251,6 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
       <Box
         sx={{
           flexGrow: 1,
-          ml: { md: `${drawerWidth}px` },
           display: "flex",
           flexDirection: "column",
           minHeight: "100vh",
@@ -267,6 +264,8 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
           sx={{
             zIndex: theme.zIndex.drawer + 1,
             boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+            width: { md: `calc(100% - ${drawerWidth}px)` },
+            ml: { md: `${drawerWidth}px` },
           }}
         >
           <Toolbar sx={{ minHeight: 64 }}>
@@ -276,6 +275,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                 color="primary"
                 edge="start"
                 sx={{ mr: 2 }}
+                aria-label="abrir menu"
               >
                 <MenuIcon />
               </IconButton>
@@ -289,8 +289,12 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                 letterSpacing: 1,
               }}
             >
-              Sistema de Oração
+              {t("app.title")}
             </Typography>
+
+            {/* Seletor de idioma */}
+            <LanguageSelector />
+
             {/* Ícone de perfil */}
             <IconButton onClick={handleProfileMenuOpen} sx={{ ml: 2 }}>
               <Avatar
@@ -309,8 +313,10 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
               open={Boolean(anchorEl)}
               onClose={handleProfileMenuClose}
             >
-              <MenuItem onClick={handleProfileMenuClose}>Perfil</MenuItem>
-              <MenuItem onClick={handleLogout}>Sair</MenuItem>
+              <MenuItem onClick={handleProfileMenuClose}>
+                {t("profile.title")}
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>{t("auth.logout")}</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

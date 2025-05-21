@@ -1,7 +1,6 @@
 import {
   Box,
   Typography,
-  Paper,
   TextField,
   Button,
   Link,
@@ -14,24 +13,12 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link as RouterLink } from "react-router-dom";
-import { AuthCard } from "../components/AuthCard";
+import { AuthCard } from "../../components/AuthCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-
-const schema = yup.object({
-  nome: yup.string().required("Campo obrigatório"),
-  email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
-  senha: yup
-    .string()
-    .min(6, "Mínimo 6 caracteres")
-    .required("Campo obrigatório"),
-  confirmar: yup
-    .string()
-    .oneOf([yup.ref("senha")], "As senhas não coincidem")
-    .required("Confirme a senha"),
-});
+import LanguageSelector from "../../components/LanguageSelector";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +26,21 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const { t } = useTranslation();
+  const schema = yup.object({
+    nome: yup.string().required(t("register.required")),
+    email: yup
+      .string()
+      .email(t("register.invalidEmail"))
+      .required(t("register.required")),
+    senha: yup
+      .string()
+      .min(6, t("register.minPassword"))
+      .required(t("register.required")),
+    confirmar: yup
+      .string()
+      .oneOf([yup.ref("senha")], t("register.notMatch"))
+      .required(t("register.confirm")),
+  });
   const {
     register,
     handleSubmit,
@@ -95,6 +97,9 @@ export default function Register() {
           filter: "blur(2px)",
         }}
       />
+      <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 1 }}>
+        <LanguageSelector />
+      </Box>
       <AuthCard>
         <PersonAddAlt1Icon
           sx={{ fontSize: 48, color: "primary.main", mb: 1 }}

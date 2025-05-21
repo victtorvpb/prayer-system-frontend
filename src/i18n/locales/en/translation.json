@@ -1,0 +1,81 @@
+{
+  "app": {
+    "title": "Prayer System"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot Password",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "logout": "Logout",
+    "submit": "Submit",
+    "backToLogin": "Back to Login",
+    "resetPassword": "Reset Password",
+    "resetPasswordSuccess": "Password reset successfully",
+    "resetPasswordError": "Error resetting password",
+    "loginSuccess": "Login successful",
+    "loginError": "Login error",
+    "registerSuccess": "Registration successful",
+    "registerError": "Registration error"
+  },
+  "profile": {
+    "title": "Profile",
+    "edit": "Edit Profile",
+    "save": "Save Changes",
+    "cancel": "Cancel"
+  },
+  "home": {
+    "welcome": "Welcome!"
+  },
+  "nav": {
+    "menu": "Main Menu",
+    "home": "Home",
+    "prayers": "Prayers",
+    "community": "Community",
+    "prayerGroups": "Prayer Groups",
+    "events": "Events",
+    "about": "About"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgot": "Forgot password",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "create": "Create account",
+    "required": "Required field",
+    "invalidEmail": "Invalid email",
+    "minPassword": "At least 6 characters",
+    "mockSuccess": "Login successful!",
+    "mockError": "Invalid email or password."
+  },
+  "register": {
+    "title": "Create account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "submit": "Register",
+    "already": "Already have an account?",
+    "back": "Back to login",
+    "required": "Required field",
+    "invalidEmail": "Invalid email",
+    "minPassword": "At least 6 characters",
+    "notMatch": "Passwords do not match",
+    "mockSuccess": "Registration successful! You can now log in."
+  },
+  "forgot": {
+    "title": "Forgot password",
+    "info": "Enter your email to receive password reset instructions.",
+    "email": "Email",
+    "submit": "Send instructions",
+    "back": "Back to login",
+    "required": "Required field",
+    "invalidEmail": "Invalid email",
+    "mockSuccess": "If the email exists, you will receive instructions soon."
+  }
+}

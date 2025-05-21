@@ -1,27 +1,22 @@
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Link,
-  Alert,
-} from "@mui/material";
+import { Box, Typography, TextField, Button, Link, Alert } from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import { Link as RouterLink } from "react-router-dom";
-import { AuthCard } from "../components/AuthCard";
+import { AuthCard } from "../../components/AuthCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-
-const schema = yup.object({
-  email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
-});
+import LanguageSelector from "../../components/LanguageSelector";
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
+  const schema = yup.object({
+    email: yup
+      .string()
+      .email(t("forgot.invalidEmail"))
+      .required(t("forgot.required")),
+  });
   const {
     register,
     handleSubmit,
@@ -32,7 +27,7 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  function onSubmit(data: any) {
+  function onSubmit() {
     setLoading(true);
     setSuccess(null);
     setTimeout(() => {
@@ -80,6 +75,9 @@ export default function ForgotPassword() {
           filter: "blur(2px)",
         }}
       />
+      <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 1 }}>
+        <LanguageSelector />
+      </Box>
       <AuthCard>
         <LockResetIcon sx={{ fontSize: 48, color: "primary.main", mb: 1 }} />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>

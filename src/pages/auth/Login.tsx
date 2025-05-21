@@ -13,25 +13,13 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { AuthCard } from "../components/AuthCard";
+import { AuthCard } from "../../components/AuthCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../hooks/useAuth";
-
-const schema = yup.object({
-  email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
-  senha: yup
-    .string()
-    .min(6, "Mínimo 6 caracteres")
-    .required("Campo obrigatório"),
-});
-
-interface LoginFormData {
-  email: string;
-  senha: string;
-}
+import { useAuth } from "../../hooks/useAuth";
+import LanguageSelector from "../../components/LanguageSelector";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +27,16 @@ export default function Login() {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
+  const schema = yup.object({
+    email: yup
+      .string()
+      .email(t("login.invalidEmail"))
+      .required(t("login.required")),
+    senha: yup
+      .string()
+      .min(6, t("login.minPassword"))
+      .required(t("login.required")),
+  });
   const {
     register,
     handleSubmit,
@@ -49,7 +47,7 @@ export default function Login() {
   const navigate = useNavigate();
   const { login, isAuthenticated, user } = useAuth();
 
-  function onSubmit(data: LoginFormData) {
+  function onSubmit(data: any) {
     setLoading(true);
     setSuccess(null);
     setError(null);
@@ -105,6 +103,9 @@ export default function Login() {
           filter: "blur(2px)",
         }}
       />
+      <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 1 }}>
+        <LanguageSelector />
+      </Box>
       <AuthCard>
         <LockOutlinedIcon sx={{ fontSize: 48, color: "primary.main", mb: 1 }} />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
@@ -113,10 +114,7 @@ export default function Login() {
         <Typography
           color="secondary"
           sx={{ mb: 2, position: "relative", p: 1, borderRadius: 1 }}
-        >
-          Status:{" "}
-          {isAuthenticated ? `LOGADO como ${user?.email} ✅` : "DESLOGADO ❌"}
-        </Typography>
+        ></Typography>
         {success && (
           <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
             {success}
