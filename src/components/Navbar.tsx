@@ -23,6 +23,8 @@ import {
   ExpandLess as ExpandLessIcon,
 } from "@mui/icons-material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate, Link } from "react-router-dom";
 
 interface NavItem {
   label: string;
@@ -69,6 +71,15 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
   };
 
   const activeRoute = getActiveRoute();
+
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    handleProfileMenuClose();
+    logout();
+    navigate("/login");
+  };
 
   const drawer = (
     <Box
@@ -134,8 +145,8 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                   {item.children.map((child) => (
                     <ListItemButton
                       key={child.label}
-                      component="a"
-                      href={child.href}
+                      component={Link}
+                      to={child.href}
                       sx={{
                         pl: 5,
                         borderRadius: 2,
@@ -165,8 +176,8 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
           ) : (
             <ListItemButton
               key={item.label}
-              component="a"
-              href={item.href}
+              component={Link}
+              to={item.href}
               sx={{
                 borderRadius: 2,
                 mx: 1,
@@ -299,7 +310,7 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
               onClose={handleProfileMenuClose}
             >
               <MenuItem onClick={handleProfileMenuClose}>Perfil</MenuItem>
-              <MenuItem onClick={handleProfileMenuClose}>Sair</MenuItem>
+              <MenuItem onClick={handleLogout}>Sair</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

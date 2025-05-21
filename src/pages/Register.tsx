@@ -7,6 +7,7 @@ import {
   Link,
   InputAdornment,
   IconButton,
+  Alert,
 } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { useState } from "react";
@@ -17,6 +18,7 @@ import { AuthCard } from "../components/AuthCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
   nome: yup.string().required("Campo obrigatório"),
@@ -34,6 +36,9 @@ const schema = yup.object({
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -43,8 +48,12 @@ export default function Register() {
   });
 
   function onSubmit(data: any) {
-    // Chame o serviço de cadastro aqui
-    console.log(data);
+    setLoading(true);
+    setSuccess(null);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(t("register.mockSuccess"));
+    }, 1200);
   }
 
   return (
@@ -91,11 +100,16 @@ export default function Register() {
           sx={{ fontSize: 48, color: "primary.main", mb: 1 }}
         />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
-          Criar conta
+          {t("register.title")}
         </Typography>
+        {success && (
+          <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
+            {success}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <TextField
-            label="Nome"
+            label={t("register.name")}
             fullWidth
             sx={{ mb: 2 }}
             autoComplete="name"
@@ -104,7 +118,7 @@ export default function Register() {
             helperText={errors.nome?.message as string}
           />
           <TextField
-            label="E-mail"
+            label={t("register.email")}
             fullWidth
             sx={{ mb: 2 }}
             autoComplete="email"
@@ -113,7 +127,7 @@ export default function Register() {
             helperText={errors.email?.message as string}
           />
           <TextField
-            label="Senha"
+            label={t("register.password")}
             type={showPassword ? "text" : "password"}
             fullWidth
             sx={{ mb: 2 }}
@@ -125,7 +139,7 @@ export default function Register() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="Mostrar senha"
+                    aria-label={t("register.password")}
                     onClick={() => setShowPassword((s) => !s)}
                     edge="end"
                   >
@@ -136,7 +150,7 @@ export default function Register() {
             }}
           />
           <TextField
-            label="Confirmar senha"
+            label={t("register.confirm")}
             type={showConfirm ? "text" : "password"}
             fullWidth
             sx={{ mb: 2 }}
@@ -148,7 +162,7 @@ export default function Register() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="Mostrar senha"
+                    aria-label={t("register.confirm")}
                     onClick={() => setShowConfirm((s) => !s)}
                     edge="end"
                   >
@@ -165,14 +179,15 @@ export default function Register() {
             fullWidth
             size="large"
             sx={{ mb: 2 }}
+            disabled={loading}
           >
-            Cadastrar
+            {loading ? t("register.submit") + "..." : t("register.submit")}
           </Button>
         </form>
         <Typography variant="body2">
-          Já tem uma conta?{" "}
+          {t("register.already")}{" "}
           <Link component={RouterLink} to="/login" underline="hover">
-            Voltar ao login
+            {t("register.back")}
           </Link>
         </Typography>
       </AuthCard>

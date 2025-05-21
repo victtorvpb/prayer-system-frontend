@@ -1,31 +1,34 @@
-import { Routes, Route } from "react-router-dom";
-import { AuthLayout } from "../layouts/AuthLayout";
-import { MainLayout } from "../layouts/MainLayout";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import Home from "../pages/Home";
-import { PrivateRoute } from "./PrivateRoute";
+import Navbar from "../components/Navbar";
+import { useAuth } from "../hooks/useAuth";
 
 export function AppRoutes() {
-  return (
-    <Routes>
-      <Route element={<AuthLayout />}>
+  const { isAuthenticated } = useAuth();
+
+  // Se não estiver autenticado, só permite acesso às rotas públicas
+  if (!isAuthenticated) {
+    return (
+      <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/cadastrar" element={<Register />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
-      </Route>
-      <Route element={<MainLayout />}>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        {/* Outras rotas privadas */}
-      </Route>
-    </Routes>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    );
+  }
+
+  // Se estiver autenticado, mostra o layout protegido com Navbar
+  return (
+    <Navbar>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* Outras rotas protegidas */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Navbar>
   );
 }

@@ -1,16 +1,27 @@
-import { Box, Typography, Paper, TextField, Button, Link } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  TextField,
+  Button,
+  Link,
+  Alert,
+} from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthCard } from "../components/AuthCard";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const schema = yup.object({
   email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
 });
 
 export default function ForgotPassword() {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -18,10 +29,16 @@ export default function ForgotPassword() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
 
   function onSubmit(data: any) {
-    // Chame o serviço de recuperação aqui
-    console.log(data);
+    setLoading(true);
+    setSuccess(null);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(t("forgot.mockSuccess"));
+    }, 1200);
   }
 
   return (
@@ -66,17 +83,22 @@ export default function ForgotPassword() {
       <AuthCard>
         <LockResetIcon sx={{ fontSize: 48, color: "primary.main", mb: 1 }} />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
-          Esqueci minha senha
+          {t("forgot.title")}
         </Typography>
         <Typography
           variant="body2"
           sx={{ mb: 3, color: "text.secondary", textAlign: "center" }}
         >
-          Informe seu e-mail para receber instruções de redefinição de senha.
+          {t("forgot.info")}
         </Typography>
+        {success && (
+          <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
+            {success}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <TextField
-            label="E-mail"
+            label={t("forgot.email")}
             fullWidth
             sx={{ mb: 3 }}
             autoComplete="email"
@@ -91,8 +113,9 @@ export default function ForgotPassword() {
             fullWidth
             size="large"
             sx={{ mb: 2 }}
+            disabled={loading}
           >
-            Enviar instruções
+            {loading ? t("forgot.submit") + "..." : t("forgot.submit")}
           </Button>
         </form>
         <Link
@@ -101,7 +124,7 @@ export default function ForgotPassword() {
           underline="hover"
           variant="body2"
         >
-          Voltar ao login
+          {t("forgot.back")}
         </Link>
       </AuthCard>
     </Box>
