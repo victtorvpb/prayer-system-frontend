@@ -22,11 +22,14 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../../hooks/useAuth";
 import LanguageSelector from "../../components/LanguageSelector";
 
+interface LoginForm {
+  email: string;
+  senha: string;
+}
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
   const schema = yup.object({
     email: yup
@@ -46,17 +49,15 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  const { login, isAuthenticated, user } = useAuth();
+  const { login } = useAuth();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
     severity: "success" | "error";
   }>({ open: false, message: "", severity: "success" });
 
-  function onSubmit(data: any) {
+  function onSubmit(data: LoginForm) {
     setLoading(true);
-    setSuccess(null);
-    setError(null);
     setTimeout(() => {
       setLoading(false);
       if (data.email === "teste@teste.com" && data.senha === "123456") {

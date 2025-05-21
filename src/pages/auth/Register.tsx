@@ -53,7 +53,7 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(data: any) {
+  function onSubmit() {
     setLoading(true);
     setSnackbar({ open: false, message: "", severity: "success" });
     setTimeout(() => {

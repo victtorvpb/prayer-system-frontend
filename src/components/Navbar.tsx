@@ -47,8 +47,6 @@ const NAV_ITEMS: Array<NavItem> = [
   { label: "nav.about", href: "/sobre" },
 ];
 
-const drawerWidth = 240;
-
 // Simulação de rota ativa (em produção, use React Router)
 const getActiveRoute = () => window.location.pathname;
 
@@ -58,7 +56,6 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const { t } = useTranslation();
-
   const drawerWidth = 240;
 
   // Estado do menu de perfil
