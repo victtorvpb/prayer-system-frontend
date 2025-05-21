@@ -263,12 +263,14 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
           elevation={0}
           sx={{
             zIndex: theme.zIndex.drawer + 1,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+            boxShadow: "0 4px 24px rgba(25, 118, 210, 0.08)",
             width: { md: `calc(100% - ${drawerWidth}px)` },
             ml: { md: `${drawerWidth}px` },
+            background: "rgba(255,255,255,0.95)",
+            backdropFilter: "blur(8px)",
           }}
         >
-          <Toolbar sx={{ minHeight: 64 }}>
+          <Toolbar sx={{ minHeight: 64, px: { xs: 2, md: 4 } }}>
             {isMobile && (
               <IconButton
                 onClick={handleDrawerToggle}
@@ -287,27 +289,26 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                 color: "primary.main",
                 fontWeight: 700,
                 letterSpacing: 1,
+                fontSize: { xs: "1.1rem", md: "1.3rem" },
               }}
             >
               {t("app.title")}
             </Typography>
-
-            {/* Seletor de idioma */}
-            <LanguageSelector />
-
-            {/* Ícone de perfil */}
-            <IconButton onClick={handleProfileMenuOpen} sx={{ ml: 2 }}>
-              <Avatar
-                sx={{
-                  bgcolor: "primary.main",
-                  width: 36,
-                  height: 36,
-                  border: `2px solid ${theme.palette.background.paper}`,
-                }}
-              >
-                <AccountCircleIcon fontSize="medium" />
-              </Avatar>
-            </IconButton>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <LanguageSelector />
+              <IconButton onClick={handleProfileMenuOpen} sx={{ ml: 1 }}>
+                <Avatar
+                  sx={{
+                    bgcolor: "primary.main",
+                    width: 36,
+                    height: 36,
+                    border: `2px solid ${theme.palette.background.paper}`,
+                  }}
+                >
+                  <AccountCircleIcon fontSize="medium" />
+                </Avatar>
+              </IconButton>
+            </Box>
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}

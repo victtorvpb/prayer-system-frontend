@@ -69,6 +69,7 @@ export default function Register() {
         justifyContent: "center",
         alignItems: "center",
         background: "linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%)",
+        py: { xs: 2, sm: 4 },
       }}
     >
       <Box
@@ -97,14 +98,17 @@ export default function Register() {
           filter: "blur(2px)",
         }}
       />
-      <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 1 }}>
+      <Box sx={{ position: "absolute", top: 24, right: 24, zIndex: 2 }}>
         <LanguageSelector />
       </Box>
       <AuthCard>
         <PersonAddAlt1Icon
-          sx={{ fontSize: 48, color: "primary.main", mb: 1 }}
+          sx={{ fontSize: 52, color: "primary.main", mb: 1 }}
         />
-        <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
+        <Typography
+          variant="h5"
+          sx={{ mb: 2, fontWeight: 700, letterSpacing: 0.5 }}
+        >
           {t("register.title")}
         </Typography>
         {success && (
