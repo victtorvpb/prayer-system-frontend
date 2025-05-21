@@ -1,17 +1,21 @@
-import { Box, Button, Typography } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { AppRoutes } from "./routes";
 
 function App() {
+  const location = useLocation();
+  const isAuthPage = ["/login", "/esqueci-senha", "/cadastrar"].includes(
+    location.pathname
+  );
+
+  if (isAuthPage) {
+    return <AppRoutes />;
+  }
+
   return (
-    <Box>
-      <Navbar />
-      <Box component="main" sx={{ p: 4 }}>
-        <Typography color="primary">Olá Material UI!</Typography>
-        <Button variant="contained" sx={{ mt: 4 }}>
-          Botão Padrão
-        </Button>
-      </Box>
-    </Box>
+    <Navbar>
+      <AppRoutes />
+    </Navbar>
   );
 }
 
