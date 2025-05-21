@@ -13,9 +13,33 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link as RouterLink } from "react-router-dom";
+import { AuthCard } from "../components/AuthCard";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+  email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
+  senha: yup
+    .string()
+    .min(6, "Mínimo 6 caracteres")
+    .required("Campo obrigatório"),
+});
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  function onSubmit(data: any) {
+    // Chame o serviço de autenticação aqui
+    console.log(data);
+  }
 
   return (
     <Box
@@ -57,85 +81,79 @@ export default function Login() {
           filter: "blur(2px)",
         }}
       />
-      <Paper
-        elevation={6}
-        sx={{
-          p: 5,
-          width: 370,
-          borderRadius: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          position: "relative",
-          zIndex: 1,
-          background: "rgba(255,255,255,0.75)",
-          backdropFilter: "blur(8px)",
-          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-        }}
-      >
+      <AuthCard>
         <LockOutlinedIcon sx={{ fontSize: 48, color: "primary.main", mb: 1 }} />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
           Login
         </Typography>
-        <TextField
-          label="E-mail"
-          fullWidth
-          sx={{ mb: 2 }}
-          autoComplete="email"
-        />
-        <TextField
-          label="Senha"
-          type={showPassword ? "text" : "password"}
-          fullWidth
-          sx={{ mb: 1 }}
-          autoComplete="current-password"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Mostrar senha"
-                  onClick={() => setShowPassword((s) => !s)}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "flex-end",
-            mb: 2,
-          }}
-        >
-          <Link
-            component={RouterLink}
-            to="/esqueci-senha"
-            underline="hover"
-            variant="body2"
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+          <TextField
+            label="E-mail"
+            fullWidth
+            sx={{ mb: 2 }}
+            autoComplete="email"
+            {...register("email")}
+            error={!!errors.email}
+            helperText={errors.email?.message as string}
+          />
+          <TextField
+            label="Senha"
+            type={showPassword ? "text" : "password"}
+            fullWidth
+            sx={{ mb: 1 }}
+            autoComplete="current-password"
+            {...register("senha")}
+            error={!!errors.senha}
+            helperText={errors.senha?.message as string}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Mostrar senha"
+                    onClick={() => setShowPassword((s) => !s)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+              mb: 2,
+            }}
           >
-            Esqueci minha senha
-          </Link>
-        </Box>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          size="large"
-          sx={{ mb: 2 }}
-        >
-          Entrar
-        </Button>
+            <Link
+              component={RouterLink}
+              to="/esqueci-senha"
+              underline="hover"
+              variant="body2"
+            >
+              Esqueci minha senha
+            </Link>
+          </Box>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            sx={{ mb: 2 }}
+          >
+            Entrar
+          </Button>
+        </form>
         <Typography variant="body2">
           Não tem uma conta?{" "}
           <Link component={RouterLink} to="/cadastrar" underline="hover">
             Criar conta
           </Link>
         </Typography>
-      </Paper>
+      </AuthCard>
     </Box>
   );
 }
