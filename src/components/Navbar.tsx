@@ -45,6 +45,9 @@ const NAV_ITEMS: Array<NavItem> = [
 
 const drawerWidth = 240;
 
+// Simulação de rota ativa (em produção, use React Router)
+const getActiveRoute = () => window.location.pathname;
+
 export default function Navbar({ children }: { children?: React.ReactNode }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -65,11 +68,20 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
     setOpenSubmenu(openSubmenu === label ? null : label);
   };
 
+  const activeRoute = getActiveRoute();
+
   const drawer = (
-    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "background.paper",
+      }}
+    >
       <Box
         sx={{
-          p: 2,
+          p: 3,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -77,17 +89,35 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
       >
         <Typography
           variant="h6"
-          sx={{ color: "primary.main", fontWeight: 700, fontSize: "1.3rem" }}
+          sx={{
+            color: "primary.main",
+            fontWeight: 700,
+            fontSize: "1.3rem",
+            letterSpacing: 1,
+          }}
         >
           Sistema de Oração
         </Typography>
       </Box>
-      <Divider />
+      <Divider sx={{ mb: 1 }} />
       <List sx={{ flexGrow: 1 }}>
         {NAV_ITEMS.map((item) =>
           item.children ? (
             <Box key={item.label}>
-              <ListItemButton onClick={() => handleToggleSubmenu(item.label)}>
+              <ListItemButton
+                onClick={() => handleToggleSubmenu(item.label)}
+                sx={{
+                  borderRadius: 2,
+                  mx: 1,
+                  mb: 0.5,
+                  color: "text.primary",
+                  fontWeight: 500,
+                  transition: "background 0.2s",
+                  "&:hover": {
+                    backgroundColor: theme.palette.action.hover,
+                  },
+                }}
+              >
                 <ListItemText primary={item.label} />
                 {openSubmenu === item.label ? (
                   <ExpandLessIcon />
@@ -106,7 +136,25 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
                       key={child.label}
                       component="a"
                       href={child.href}
-                      sx={{ pl: 4 }}
+                      sx={{
+                        pl: 5,
+                        borderRadius: 2,
+                        mx: 1,
+                        mb: 0.5,
+                        color:
+                          activeRoute === child.href
+                            ? "primary.main"
+                            : "text.primary",
+                        backgroundColor:
+                          activeRoute === child.href
+                            ? theme.palette.action.selected
+                            : "transparent",
+                        fontWeight: activeRoute === child.href ? 700 : 500,
+                        transition: "background 0.2s",
+                        "&:hover": {
+                          backgroundColor: theme.palette.action.hover,
+                        },
+                      }}
                     >
                       <ListItemText primary={child.label} />
                     </ListItemButton>
@@ -115,7 +163,27 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
               </Collapse>
             </Box>
           ) : (
-            <ListItemButton key={item.label} component="a" href={item.href}>
+            <ListItemButton
+              key={item.label}
+              component="a"
+              href={item.href}
+              sx={{
+                borderRadius: 2,
+                mx: 1,
+                mb: 0.5,
+                color:
+                  activeRoute === item.href ? "primary.main" : "text.primary",
+                backgroundColor:
+                  activeRoute === item.href
+                    ? theme.palette.action.selected
+                    : "transparent",
+                fontWeight: activeRoute === item.href ? 700 : 500,
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: theme.palette.action.hover,
+                },
+              }}
+            >
               <ListItemText primary={item.label} />
             </ListItemButton>
           )
@@ -203,14 +271,26 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
             )}
             <Typography
               variant="h6"
-              sx={{ flexGrow: 1, color: "primary.main", fontWeight: 700 }}
+              sx={{
+                flexGrow: 1,
+                color: "primary.main",
+                fontWeight: 700,
+                letterSpacing: 1,
+              }}
             >
               Sistema de Oração
             </Typography>
             {/* Ícone de perfil */}
             <IconButton onClick={handleProfileMenuOpen} sx={{ ml: 2 }}>
-              <Avatar sx={{ bgcolor: "primary.main", width: 32, height: 32 }}>
-                <AccountCircleIcon />
+              <Avatar
+                sx={{
+                  bgcolor: "primary.main",
+                  width: 36,
+                  height: 36,
+                  border: `2px solid ${theme.palette.background.paper}`,
+                }}
+              >
+                <AccountCircleIcon fontSize="medium" />
               </Avatar>
             </IconButton>
             <Menu
@@ -226,7 +306,16 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
         {/* Espaço para AppBar */}
         <Toolbar sx={{ minHeight: 64 }} />
         {/* Conteúdo renderizado */}
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: { xs: 2, md: 4 },
+            bgcolor: "background.default",
+            borderRadius: 3,
+            boxShadow: { xs: 0, md: "0 2px 8px rgba(0,0,0,0.04)" },
+          }}
+        >
           {children}
         </Box>
       </Box>
