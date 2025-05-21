@@ -6,7 +6,6 @@ import {
   Link,
   InputAdornment,
   IconButton,
-  Alert,
 } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { useState } from "react";
@@ -19,13 +18,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../components/LanguageSelector";
+import ToastNotification from "../../components/ToastNotification";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState<string | null>(null);
   const { t } = useTranslation();
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: "success" | "error";
+  }>({ open: false, message: "", severity: "success" });
   const schema = yup.object({
     nome: yup.string().required(t("register.required")),
     email: yup
@@ -51,10 +55,14 @@ export default function Register() {
 
   function onSubmit(data: any) {
     setLoading(true);
-    setSuccess(null);
+    setSnackbar({ open: false, message: "", severity: "success" });
     setTimeout(() => {
       setLoading(false);
-      setSuccess(t("register.mockSuccess"));
+      setSnackbar({
+        open: true,
+        message: t("register.mockSuccess"),
+        severity: "success",
+      });
     }, 1200);
   }
 
@@ -101,6 +109,12 @@ export default function Register() {
       <Box sx={{ position: "absolute", top: 24, right: 24, zIndex: 2 }}>
         <LanguageSelector />
       </Box>
+      <ToastNotification
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
       <AuthCard>
         <PersonAddAlt1Icon
           sx={{ fontSize: 52, color: "primary.main", mb: 1 }}
@@ -111,11 +125,6 @@ export default function Register() {
         >
           {t("register.title")}
         </Typography>
-        {success && (
-          <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
-            {success}
-          </Alert>
-        )}
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <TextField
             label={t("register.name")}

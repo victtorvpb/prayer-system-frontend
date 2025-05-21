@@ -1,4 +1,4 @@
-import { Box, Typography, TextField, Button, Link, Alert } from "@mui/material";
+import { Box, Typography, TextField, Button, Link } from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthCard } from "../../components/AuthCard";
@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import LanguageSelector from "../../components/LanguageSelector";
+import ToastNotification from "../../components/ToastNotification";
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
@@ -25,14 +26,22 @@ export default function ForgotPassword() {
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: "success" | "error";
+  }>({ open: false, message: "", severity: "success" });
 
   function onSubmit() {
     setLoading(true);
-    setSuccess(null);
+    setSnackbar({ open: false, message: "", severity: "success" });
     setTimeout(() => {
       setLoading(false);
-      setSuccess(t("forgot.mockSuccess"));
+      setSnackbar({
+        open: true,
+        message: t("forgot.mockSuccess"),
+        severity: "success",
+      });
     }, 1200);
   }
 
@@ -79,6 +88,12 @@ export default function ForgotPassword() {
       <Box sx={{ position: "absolute", top: 24, right: 24, zIndex: 2 }}>
         <LanguageSelector />
       </Box>
+      <ToastNotification
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
       <AuthCard>
         <LockResetIcon sx={{ fontSize: 52, color: "primary.main", mb: 1 }} />
         <Typography
@@ -93,11 +108,6 @@ export default function ForgotPassword() {
         >
           {t("forgot.info")}
         </Typography>
-        {success && (
-          <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
-            {success}
-          </Alert>
-        )}
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <TextField
             label={t("forgot.email")}
