@@ -1,8 +1,29 @@
 import { Box, Typography, Paper, TextField, Button, Link } from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import { Link as RouterLink } from "react-router-dom";
+import { AuthCard } from "../components/AuthCard";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+  email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
+});
 
 export default function ForgotPassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  function onSubmit(data: any) {
+    // Chame o serviço de recuperação aqui
+    console.log(data);
+  }
+
   return (
     <Box
       sx={{
@@ -42,22 +63,7 @@ export default function ForgotPassword() {
           filter: "blur(2px)",
         }}
       />
-      <Paper
-        elevation={6}
-        sx={{
-          p: 5,
-          width: 370,
-          borderRadius: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          position: "relative",
-          zIndex: 1,
-          background: "rgba(255,255,255,0.75)",
-          backdropFilter: "blur(8px)",
-          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-        }}
-      >
+      <AuthCard>
         <LockResetIcon sx={{ fontSize: 48, color: "primary.main", mb: 1 }} />
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
           Esqueci minha senha
@@ -68,21 +74,27 @@ export default function ForgotPassword() {
         >
           Informe seu e-mail para receber instruções de redefinição de senha.
         </Typography>
-        <TextField
-          label="E-mail"
-          fullWidth
-          sx={{ mb: 3 }}
-          autoComplete="email"
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          size="large"
-          sx={{ mb: 2 }}
-        >
-          Enviar instruções
-        </Button>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+          <TextField
+            label="E-mail"
+            fullWidth
+            sx={{ mb: 3 }}
+            autoComplete="email"
+            {...register("email")}
+            error={!!errors.email}
+            helperText={errors.email?.message as string}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            sx={{ mb: 2 }}
+          >
+            Enviar instruções
+          </Button>
+        </form>
         <Link
           component={RouterLink}
           to="/login"
@@ -91,7 +103,7 @@ export default function ForgotPassword() {
         >
           Voltar ao login
         </Link>
-      </Paper>
+      </AuthCard>
     </Box>
   );
 }
