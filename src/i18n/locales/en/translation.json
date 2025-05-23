@@ -19,7 +19,12 @@
     "loginSuccess": "Login successful",
     "loginError": "Login error",
     "registerSuccess": "Registration successful",
-    "registerError": "Registration error"
+    "registerError": "Registration error",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "rememberMe": "Remember me",
+    "resetPasswordInstructions": "Enter your new password",
+    "forgotPasswordInstructions": "Enter your email to recover your password"
   },
   "profile": {
     "title": "Profile",
@@ -41,7 +46,22 @@
     "admin": "Admin"
   },
   "admin": {
-    "registerUser": "Register User"
+    "registerUser": "Register User",
+    "registerAgenda": "Register Agenda",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "admin": "Administrator",
+    "user": "User",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "roleRequired": "Role is required",
+    "statusRequired": "Status is required",
+    "prayerPoints": "Prayer Points"
   },
   "register": {
     "title": "Register User",
@@ -80,5 +100,64 @@
     "required": "Required field",
     "invalidEmail": "Invalid email",
     "mockSuccess": "If the email exists, you will receive instructions shortly."
+  },
+  "common": {
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot password?",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "name": "Name",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "back": "Back",
+    "required": "Required field",
+    "invalidEmail": "Invalid email",
+    "passwordsMustMatch": "Passwords must match",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "navbar": {
+    "home": "Home",
+    "prayers": "Prayers",
+    "community": "Community",
+    "about": "About",
+    "profile": "Profile",
+    "logout": "Logout",
+    "prayerGroups": "Prayer Groups",
+    "events": "Events"
+  },
+  "agenda": {
+    "title": "Title",
+    "description": "Description",
+    "date": "Date and Time",
+    "status": "Status",
+    "priority": "Priority",
+    "active": "Active",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "titleRequired": "Title is required",
+    "descriptionRequired": "Description is required",
+    "dateRequired": "Date and time are required",
+    "statusRequired": "Status is required",
+    "priorityRequired": "Priority is required",
+    "submit": "Save Agenda"
+  },
+  "prayerPoints": {
+    "category": "Category",
+    "categoryRequired": "Category is required",
+    "description": "Agenda description",
+    "descriptionRequired": "Description is required",
+    "descriptionMaxLength": "Description must be at most 200 characters",
+    "remainingChars": "{{count}} characters remaining"
   }
 }

@@ -6,6 +6,7 @@ import Home from "../pages/home/Home";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
 import CadastrarUsuario from "../pages/admin/CadastrarUsuario";
+import PrayerPoints from "../pages/admin/PrayerPoints";
 
 // Componente para proteger rotas de administrador
 function AdminRoute({ children }: { children: React.ReactNode }) {
@@ -42,6 +43,14 @@ export function AppRoutes() {
           element={
             <AdminRoute>
               <CadastrarUsuario />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/prayer-points"
+          element={
+            <AdminRoute>
+              <PrayerPoints />
             </AdminRoute>
           }
         />

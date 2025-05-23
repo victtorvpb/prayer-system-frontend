@@ -5,7 +5,7 @@
   "auth": {
     "login": "Entrar",
     "register": "Cadastrar",
-    "forgotPassword": "Esqueci minha senha",
+    "forgotPassword": "Esqueceu a senha?",
     "email": "E-mail",
     "password": "Senha",
     "confirmPassword": "Confirmar senha",
@@ -14,12 +14,17 @@
     "submit": "Enviar",
     "backToLogin": "Voltar para o login",
     "resetPassword": "Redefinir senha",
-    "resetPasswordSuccess": "Senha redefinida com sucesso",
+    "resetPasswordSuccess": "Senha redefinida com sucesso!",
     "resetPasswordError": "Erro ao redefinir senha",
-    "loginSuccess": "Login realizado com sucesso",
-    "loginError": "Erro ao realizar login",
-    "registerSuccess": "Cadastro realizado com sucesso",
-    "registerError": "Erro ao realizar cadastro"
+    "loginSuccess": "Login realizado com sucesso!",
+    "loginError": "Erro ao fazer login",
+    "registerSuccess": "Cadastro realizado com sucesso!",
+    "registerError": "Erro ao realizar cadastro",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "dontHaveAccount": "Não tem uma conta?",
+    "rememberMe": "Lembrar-me",
+    "resetPasswordInstructions": "Digite sua nova senha",
+    "forgotPasswordInstructions": "Digite seu e-mail para recuperar sua senha"
   },
   "profile": {
     "title": "Perfil",
@@ -41,7 +46,22 @@
     "admin": "Administração"
   },
   "admin": {
-    "registerUser": "Cadastrar Usuário"
+    "registerUser": "Cadastrar Usuário",
+    "registerAgenda": "Register Agenda",
+    "name": "Nome",
+    "email": "E-mail",
+    "role": "Perfil",
+    "status": "Status",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "admin": "Administrador",
+    "user": "Usuário",
+    "nameRequired": "Nome é obrigatório",
+    "emailRequired": "E-mail é obrigatório",
+    "emailInvalid": "E-mail inválido",
+    "roleRequired": "Perfil é obrigatório",
+    "statusRequired": "Status é obrigatório",
+    "prayerPoints": "Pontos de Oração"
   },
   "register": {
     "title": "Cadastrar Usuário",
@@ -80,5 +100,33 @@
     "required": "Campo obrigatório",
     "invalidEmail": "E-mail inválido",
     "mockSuccess": "Se o e-mail existir, você receberá as instruções em instantes."
+  },
+  "agenda": {
+    "title": "Título",
+    "description": "Descrição",
+    "date": "Data e Hora",
+    "status": "Status",
+    "priority": "Prioridade",
+    "active": "Ativo",
+    "pending": "Pendente",
+    "inProgress": "Em Andamento",
+    "completed": "Concluída",
+    "low": "Baixa",
+    "medium": "Média",
+    "high": "Alta",
+    "titleRequired": "Título é obrigatório",
+    "descriptionRequired": "Descrição é obrigatória",
+    "dateRequired": "Data e hora são obrigatórios",
+    "statusRequired": "Status é obrigatório",
+    "priorityRequired": "Prioridade é obrigatória",
+    "submit": "Salvar Pauta"
+  },
+  "prayerPoints": {
+    "category": "Categoria",
+    "categoryRequired": "Categoria é obrigatória",
+    "description": "Descrição da pauta",
+    "descriptionRequired": "Descrição é obrigatória",
+    "descriptionMaxLength": "A descrição deve ter no máximo 200 caracteres",
+    "remainingChars": "{{count}} caracteres restantes"
   }
 }

@@ -27,6 +27,8 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 interface NavItem {
   label: string;
@@ -35,12 +37,6 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [{ label: "nav.home", href: "/" }];
-
-// Adicionando as rotas administrativas
-const ADMIN_ITEMS: Array<NavItem> = [
-  { label: "admin.registerUser", href: "/register-user" },
-  // Adicione mais rotas administrativas aqui
-];
 
 // Simulação de rota ativa (em produção, use React Router)
 const getActiveRoute = () => window.location.pathname;
@@ -52,6 +48,20 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const { t } = useTranslation();
   const drawerWidth = 240;
+
+  // Adicionando as rotas administrativas
+  const ADMIN_ITEMS = [
+    {
+      text: t("admin.registerUser"),
+      icon: <PersonAddIcon />,
+      path: "/register-user",
+    },
+    {
+      text: t("admin.prayerPoints"),
+      icon: <FormatListBulletedIcon />,
+      path: "/prayer-points",
+    },
+  ];
 
   // Estado do menu de perfil
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -231,30 +241,30 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
               <List component="div" disablePadding>
                 {ADMIN_ITEMS.map((item) => (
                   <ListItemButton
-                    key={item.label}
+                    key={item.text}
                     component={Link}
-                    to={item.href || "#"}
+                    to={item.path || "#"}
                     sx={{
                       pl: 5,
                       borderRadius: 2,
                       mx: 1,
                       mb: 0.5,
                       color:
-                        activeRoute === item.href
+                        activeRoute === item.path
                           ? "primary.main"
                           : "text.primary",
                       backgroundColor:
-                        activeRoute === item.href
+                        activeRoute === item.path
                           ? theme.palette.action.selected
                           : "transparent",
-                      fontWeight: activeRoute === item.href ? 700 : 500,
+                      fontWeight: activeRoute === item.path ? 700 : 500,
                       transition: "background 0.2s",
                       "&:hover": {
                         backgroundColor: theme.palette.action.hover,
                       },
                     }}
                   >
-                    <ListItemText primary={t(item.label)} />
+                    <ListItemText primary={item.text} />
                   </ListItemButton>
                 ))}
               </List>

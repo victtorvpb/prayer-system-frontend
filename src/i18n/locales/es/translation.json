@@ -19,7 +19,12 @@
     "loginSuccess": "Inicio de sesión exitoso",
     "loginError": "Error al iniciar sesión",
     "registerSuccess": "Registro exitoso",
-    "registerError": "Error al registrarse"
+    "registerError": "Error al registrarse",
+    "alreadyHaveAccount": "¿Ya tiene una cuenta?",
+    "dontHaveAccount": "¿No tiene una cuenta?",
+    "rememberMe": "Recordarme",
+    "resetPasswordInstructions": "Ingrese su nueva contraseña",
+    "forgotPasswordInstructions": "Ingrese su correo para recuperar su contraseña"
   },
   "profile": {
     "title": "Perfil",
@@ -41,7 +46,22 @@
     "admin": "Administración"
   },
   "admin": {
-    "registerUser": "Registrar Usuario"
+    "registerUser": "Registrar Usuario",
+    "registerAgenda": "Registrar Agenda",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "nameRequired": "El nombre es obligatorio",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Correo electrónico inválido",
+    "roleRequired": "El rol es obligatorio",
+    "statusRequired": "El estado es obligatorio",
+    "prayerPoints": "Puntos de Oración"
   },
   "register": {
     "title": "Registrar Usuario",
@@ -80,5 +100,64 @@
     "required": "Campo obligatorio",
     "invalidEmail": "Correo inválido",
     "mockSuccess": "Si el correo existe, recibirás las instrucciones pronto."
+  },
+  "common": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "name": "Nombre",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "back": "Volver",
+    "required": "Campo obligatorio",
+    "invalidEmail": "Correo electrónico inválido",
+    "passwordsMustMatch": "Las contraseñas deben coincidir",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "prayers": "Oraciones",
+    "community": "Comunidad",
+    "about": "Acerca de",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión",
+    "prayerGroups": "Grupos de oración",
+    "events": "Eventos"
+  },
+  "agenda": {
+    "title": "Título",
+    "description": "Descripción",
+    "date": "Fecha y Hora",
+    "status": "Estado",
+    "priority": "Prioridad",
+    "active": "Activo",
+    "pending": "Pendiente",
+    "inProgress": "En Progreso",
+    "completed": "Completada",
+    "low": "Baja",
+    "medium": "Media",
+    "high": "Alta",
+    "titleRequired": "El título es obligatorio",
+    "descriptionRequired": "La descripción es obligatoria",
+    "dateRequired": "La fecha y hora son obligatorias",
+    "statusRequired": "El estado es obligatorio",
+    "priorityRequired": "La prioridad es obligatoria",
+    "submit": "Guardar Agenda"
+  },
+  "prayerPoints": {
+    "category": "Categoría",
+    "categoryRequired": "La categoría es obligatoria",
+    "description": "Descripción de la agenda",
+    "descriptionRequired": "La descripción es obligatoria",
+    "descriptionMaxLength": "La descripción debe tener como máximo 200 caracteres",
+    "remainingChars": "{{count}} caracteres restantes"
   }
 }
