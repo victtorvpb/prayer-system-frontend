@@ -158,6 +158,12 @@
     "description": "Descripción de la agenda",
     "descriptionRequired": "La descripción es obligatoria",
     "descriptionMaxLength": "La descripción debe tener como máximo 200 caracteres",
-    "remainingChars": "{{count}} caracteres restantes"
+    "remainingChars": "{{count}} caracteres restantes",
+    "bibleReference": "Referencia Bíblica",
+    "bibleReferenceRequired": "La referencia bíblica es obligatoria",
+    "bibleReferencePlaceholder": "Ej: Juan 3:16",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "save": "Guardar Punto de Oración"
   }
 }

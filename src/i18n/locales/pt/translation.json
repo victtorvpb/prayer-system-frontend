@@ -127,6 +127,17 @@
     "description": "Descrição da pauta",
     "descriptionRequired": "Descrição é obrigatória",
     "descriptionMaxLength": "A descrição deve ter no máximo 200 caracteres",
-    "remainingChars": "{{count}} caracteres restantes"
+    "remainingChars": "{{count}} caracteres restantes",
+    "bibleReference": "Referência Bíblica",
+    "bibleReferenceRequired": "Referência bíblica é obrigatória",
+    "bibleReferencePlaceholder": "Ex: João 3:16",
+    "active": "Ativo",
+    "inactive": "Inativo"
+  },
+  "common": {
+    "save": "Salvar",
+    "clear": "Limpar",
+    "saveSuccess": "Salvo com sucesso!",
+    "loading": "Carregando..."
   }
 }

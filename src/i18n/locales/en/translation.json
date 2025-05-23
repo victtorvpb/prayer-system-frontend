@@ -158,6 +158,12 @@
     "description": "Agenda description",
     "descriptionRequired": "Description is required",
     "descriptionMaxLength": "Description must be at most 200 characters",
-    "remainingChars": "{{count}} characters remaining"
+    "remainingChars": "{{count}} characters remaining",
+    "bibleReference": "Bible Reference",
+    "bibleReferenceRequired": "Bible reference is required",
+    "bibleReferencePlaceholder": "Ex: John 3:16",
+    "active": "Active",
+    "inactive": "Inactive",
+    "save": "Save Prayer Point"
   }
 }

@@ -17,7 +17,8 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../components/AuthCard";
 import { useAuth } from "../../hooks/useAuth";
 import LanguageSelector from "../../components/LanguageSelector";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
@@ -31,7 +32,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-  const schema = yup.object({
+  const schema = yup.object().shape({
     email: yup
       .string()
       .email(t("login.invalidEmail"))
@@ -41,13 +42,15 @@ export default function Login() {
       .min(6, t("login.minPassword"))
       .required(t("login.required")),
   });
+
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginForm>({
     resolver: yupResolver(schema),
   });
+
   const navigate = useNavigate();
   const { login } = useAuth();
   const [snackbar, setSnackbar] = useState<{
@@ -56,7 +59,7 @@ export default function Login() {
     severity: "success" | "error";
   }>({ open: false, message: "", severity: "success" });
 
-  function onSubmit(data: LoginForm) {
+  const onSubmit: SubmitHandler<LoginForm> = (data) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -81,7 +84,7 @@ export default function Login() {
         });
       }
     }, 1200);
-  }
+  };
 
   return (
     <Box
@@ -200,37 +203,49 @@ export default function Login() {
           {t("login.title")}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <TextField
-            label={t("login.email")}
-            fullWidth
-            sx={{ mb: 2 }}
-            autoComplete="email"
-            {...register("email")}
-            error={!!errors.email}
-            helperText={errors.email?.message as string}
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={t("login.email")}
+                fullWidth
+                sx={{ mb: 2 }}
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+            )}
           />
-          <TextField
-            label={t("login.password")}
-            type={showPassword ? "text" : "password"}
-            fullWidth
-            sx={{ mb: 1 }}
-            autoComplete="current-password"
-            {...register("senha")}
-            error={!!errors.senha}
-            helperText={errors.senha?.message as string}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={t("login.password")}
-                    onClick={() => setShowPassword((s) => !s)}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+          <Controller
+            name="senha"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={t("login.password")}
+                type={showPassword ? "text" : "password"}
+                fullWidth
+                sx={{ mb: 1 }}
+                autoComplete="current-password"
+                error={!!errors.senha}
+                helperText={errors.senha?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label={t("login.password")}
+                        onClick={() => setShowPassword((s) => !s)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
           />
           <Box
             sx={{

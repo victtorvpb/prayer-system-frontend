@@ -1,18 +1,22 @@
 import {
-  Box,
-  Typography,
-  FormControl,
   Autocomplete,
   TextField,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState } from "react";
+import FormContainer from "../../components/FormContainer";
 
 interface PrayerPointForm {
   category: string;
   description: string;
+  bibleReference: string;
+  isActive: boolean;
 }
 
 const CATEGORIES = [
@@ -33,13 +37,19 @@ const MAX_DESCRIPTION_LENGTH = 200;
 
 export default function PrayerPoints() {
   const { t } = useTranslation();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const schema = yup.object({
+  const schema = yup.object().shape({
     category: yup.string().required(t("prayerPoints.categoryRequired")),
     description: yup
       .string()
       .required(t("prayerPoints.descriptionRequired"))
       .max(MAX_DESCRIPTION_LENGTH, t("prayerPoints.descriptionMaxLength")),
+    bibleReference: yup
+      .string()
+      .required(t("prayerPoints.bibleReferenceRequired")),
+    isActive: yup.boolean().required(),
   });
 
   const {
@@ -49,67 +59,124 @@ export default function PrayerPoints() {
     formState: { errors },
   } = useForm<PrayerPointForm>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      isActive: true,
+    },
   });
 
   const descriptionLength = watch("description")?.length || 0;
   const remainingChars = MAX_DESCRIPTION_LENGTH - descriptionLength;
 
-  function onSubmit(data: PrayerPointForm) {
-    console.log(data);
-    // Aqui você pode enviar os dados para a API
-  }
+  const onSubmit: SubmitHandler<PrayerPointForm> = async (data) => {
+    setIsLoading(true);
+    try {
+      console.log(data);
+      // Aqui você pode enviar os dados para a API
+      setShowSuccess(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        {t("admin.prayerPoints")}
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600 }}>
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => (
-              <Autocomplete
-                {...field}
-                options={CATEGORIES}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t("prayerPoints.category")}
-                    error={!!errors.category}
-                    helperText={errors.category?.message}
-                  />
-                )}
-                onChange={(_, value) => field.onChange(value)}
-              />
-            )}
-          />
-        </FormControl>
-
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
+    <FormContainer
+      title={t("admin.prayerPoints")}
+      onSubmit={handleSubmit(onSubmit)}
+      isLoading={isLoading}
+      showSuccess={showSuccess}
+      onCloseSuccess={() => setShowSuccess(false)}
+      successMessage={t("prayerPoints.saveSuccess")}
+    >
+      <Controller
+        name="category"
+        control={control}
+        render={({ field }) => (
+          <Autocomplete
+            {...field}
+            options={CATEGORIES}
+            renderInput={(params) => (
               <TextField
-                {...field}
-                label={t("prayerPoints.description")}
-                multiline
-                rows={4}
-                error={!!errors.description}
-                helperText={
-                  errors.description?.message ||
-                  t("prayerPoints.remainingChars", { count: remainingChars })
-                }
+                {...params}
+                label={t("prayerPoints.category")}
+                error={!!errors.category}
+                helperText={errors.category?.message}
+                size="small"
                 inputProps={{
-                  maxLength: MAX_DESCRIPTION_LENGTH,
+                  ...params.inputProps,
+                  "aria-label": t("prayerPoints.category"),
                 }}
               />
             )}
+            onChange={(_, value) => field.onChange(value)}
           />
-        </FormControl>
-      </form>
-    </Box>
+        )}
+      />
+
+      <Controller
+        name="bibleReference"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            label={t("prayerPoints.bibleReference")}
+            error={!!errors.bibleReference}
+            helperText={errors.bibleReference?.message}
+            placeholder={t("prayerPoints.bibleReferencePlaceholder")}
+            size="small"
+            inputProps={{
+              "aria-label": t("prayerPoints.bibleReference"),
+            }}
+          />
+        )}
+      />
+
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            label={t("prayerPoints.description")}
+            multiline
+            rows={3}
+            error={!!errors.description}
+            helperText={
+              errors.description?.message ||
+              t("prayerPoints.remainingChars", { count: remainingChars })
+            }
+            inputProps={{
+              maxLength: MAX_DESCRIPTION_LENGTH,
+              "aria-label": t("prayerPoints.description"),
+            }}
+            size="small"
+          />
+        )}
+      />
+
+      <Controller
+        name="isActive"
+        control={control}
+        render={({ field }) => (
+          <FormControlLabel
+            control={
+              <Switch
+                {...field}
+                checked={field.value}
+                onChange={(e) => field.onChange(e.target.checked)}
+                size="small"
+                inputProps={{
+                  "aria-label": t("prayerPoints.isActive"),
+                }}
+              />
+            }
+            label={
+              field.value
+                ? t("prayerPoints.active")
+                : t("prayerPoints.inactive")
+            }
+          />
+        )}
+      />
+    </FormContainer>
   );
 }

@@ -1,40 +1,54 @@
-import { Box, Typography, TextField, Button, Link } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../components/AuthCard";
-import { useForm } from "react-hook-form";
+import LanguageSelector from "../../components/LanguageSelector";
+import { useForm, Controller } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import LanguageSelector from "../../components/LanguageSelector";
-import ToastNotification from "../../components/ToastNotification";
+
+interface ForgotPasswordForm {
+  email: string;
+}
 
 export default function ForgotPassword() {
-  const { t } = useTranslation();
-  const schema = yup.object({
-    email: yup
-      .string()
-      .email(t("forgot.invalidEmail"))
-      .required(t("forgot.required")),
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
     severity: "success" | "error";
   }>({ open: false, message: "", severity: "success" });
 
-  function onSubmit() {
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email(t("forgot.invalidEmail"))
+      .required(t("forgot.required")),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordForm>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<ForgotPasswordForm> = (data) => {
     setLoading(true);
-    setSnackbar({ open: false, message: "", severity: "success" });
     setTimeout(() => {
       setLoading(false);
       setSnackbar({
@@ -42,8 +56,11 @@ export default function ForgotPassword() {
         message: t("forgot.mockSuccess"),
         severity: "success",
       });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     }, 1200);
-  }
+  };
 
   return (
     <Box
@@ -59,6 +76,7 @@ export default function ForgotPassword() {
         py: { xs: 2, sm: 4 },
       }}
     >
+      {/* Círculos decorativos */}
       <Box
         sx={{
           position: "absolute",
@@ -88,12 +106,70 @@ export default function ForgotPassword() {
       <Box sx={{ position: "absolute", top: 24, right: 24, zIndex: 2 }}>
         <LanguageSelector />
       </Box>
-      <ToastNotification
+      <Snackbar
         open={snackbar.open}
+        autoHideDuration={4000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        message={snackbar.message}
-        severity={snackbar.severity}
-      />
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: 3,
+            boxShadow: "0 8px 32px 0 rgba(25, 118, 210, 0.18)",
+            background:
+              snackbar.severity === "success"
+                ? "linear-gradient(90deg, #e0ffe7 0%, #f4fff9 100%)"
+                : "linear-gradient(90deg, #ffe0e0 0%, #fff4f4 100%)",
+            backdropFilter: "blur(8px)",
+            border:
+              snackbar.severity === "success"
+                ? "1.5px solid #4caf50"
+                : "1.5px solid #f44336",
+            minWidth: 260,
+            maxWidth: 420,
+            pr: 1,
+            marginTop: { xs: 2, sm: 3 },
+            marginRight: { xs: 1, sm: 3 },
+          },
+        }}
+      >
+        <Alert
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          severity={snackbar.severity}
+          iconMapping={{
+            success: (
+              <span style={{ fontSize: 24, color: "#4caf50", marginRight: 8 }}>
+                ✔️
+              </span>
+            ),
+            error: (
+              <span style={{ fontSize: 24, color: "#f44336", marginRight: 8 }}>
+                ❌
+              </span>
+            ),
+          }}
+          sx={{
+            width: "100%",
+            borderRadius: 3,
+            fontWeight: 500,
+            fontSize: 15,
+            py: 0.7,
+            px: 2,
+            background: "transparent",
+            color: "#222",
+            alignItems: "center",
+            boxShadow: "none",
+            letterSpacing: 0.2,
+            display: "flex",
+            "& .MuiAlert-icon": {
+              fontSize: 24,
+              mr: 1.5,
+              alignSelf: "flex-start",
+            },
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <AuthCard>
         <LockResetIcon sx={{ fontSize: 52, color: "primary.main", mb: 1 }} />
         <Typography
@@ -109,14 +185,20 @@ export default function ForgotPassword() {
           {t("forgot.info")}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <TextField
-            label={t("forgot.email")}
-            fullWidth
-            sx={{ mb: 3 }}
-            autoComplete="email"
-            {...register("email")}
-            error={!!errors.email}
-            helperText={errors.email?.message as string}
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={t("forgot.email")}
+                fullWidth
+                sx={{ mb: 2 }}
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+            )}
           />
           <Button
             type="submit"
@@ -129,15 +211,17 @@ export default function ForgotPassword() {
           >
             {loading ? t("forgot.submit") + "..." : t("forgot.submit")}
           </Button>
+          <Box sx={{ textAlign: "center" }}>
+            <Link
+              component={RouterLink}
+              to="/login"
+              underline="hover"
+              variant="body2"
+            >
+              {t("forgot.back")}
+            </Link>
+          </Box>
         </form>
-        <Link
-          component={RouterLink}
-          to="/login"
-          underline="hover"
-          variant="body2"
-        >
-          {t("forgot.back")}
-        </Link>
       </AuthCard>
     </Box>
   );
