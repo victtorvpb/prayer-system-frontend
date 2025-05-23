@@ -140,7 +140,15 @@
     "active": "Active",
     "inactive": "Inactive",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "noData": "No data found",
+    "confirm": "Confirm",
+    "areYouSure": "Are you sure?",
+    "thisActionCannotBeUndone": "This action cannot be undone"
   },
   "navbar": {
     "home": "Home",
@@ -190,6 +198,39 @@
     "inactive": "Inactive",
     "saveSuccess": "Prayer point saved successfully!",
     "deleteConfirmTitle": "Confirm Deletion",
-    "deleteConfirmMessage": "Are you sure you want to delete the prayer point from category {{category}}?"
+    "deleteConfirmMessage": "Are you sure you want to delete the prayer point from category {{category}}?",
+    "delete": "Delete Prayer Point",
+    "deleteConfirm": "Are you sure you want to delete this prayer point?",
+    "success": {
+      "created": "Prayer point created successfully",
+      "updated": "Prayer point updated successfully",
+      "deleted": "Prayer point deleted successfully"
+    },
+    "error": {
+      "create": "Error creating prayer point",
+      "update": "Error updating prayer point",
+      "delete": "Error deleting prayer point"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "active": "Active",
+    "create": "Create User",
+    "edit": "Edit User",
+    "delete": "Delete User",
+    "deleteConfirm": "Are you sure you want to delete this user?",
+    "success": {
+      "created": "User created successfully",
+      "updated": "User updated successfully",
+      "deleted": "User deleted successfully"
+    },
+    "error": {
+      "create": "Error creating user",
+      "update": "Error updating user",
+      "delete": "Error deleting user"
+    }
   }
 }

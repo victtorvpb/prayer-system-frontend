@@ -152,18 +152,61 @@
     "inactive": "Inativo",
     "saveSuccess": "Ponto de oração salvo com sucesso!",
     "deleteConfirmTitle": "Confirmar Exclusão",
-    "deleteConfirmMessage": "Tem certeza que deseja excluir o ponto de oração da categoria {{category}}?"
+    "deleteConfirmMessage": "Tem certeza que deseja excluir o ponto de oração da categoria {{category}}?",
+    "delete": "Excluir Ponto de Oração",
+    "deleteConfirm": "Tem certeza que deseja excluir este ponto de oração?",
+    "success": {
+      "created": "Ponto de oração criado com sucesso",
+      "updated": "Ponto de oração atualizado com sucesso",
+      "deleted": "Ponto de oração excluído com sucesso"
+    },
+    "error": {
+      "create": "Erro ao criar ponto de oração",
+      "update": "Erro ao atualizar ponto de oração",
+      "delete": "Erro ao excluir ponto de oração"
+    }
   },
   "common": {
     "actions": "Ações",
+    "create": "Criar",
     "edit": "Editar",
     "delete": "Excluir",
+    "yes": "Sim",
+    "no": "Não",
     "cancel": "Cancelar",
     "save": "Salvar",
-    "active": "Ativo",
-    "inactive": "Inativo",
+    "back": "Voltar",
+    "search": "Buscar",
+    "filter": "Filtrar",
     "loading": "Carregando...",
+    "noData": "Nenhum dado encontrado",
     "error": "Erro",
-    "success": "Sucesso"
+    "success": "Sucesso",
+    "warning": "Aviso",
+    "info": "Informação",
+    "confirm": "Confirmar",
+    "areYouSure": "Tem certeza?",
+    "thisActionCannotBeUndone": "Esta ação não pode ser desfeita"
+  },
+  "users": {
+    "title": "Usuários",
+    "name": "Nome",
+    "email": "E-mail",
+    "role": "Perfil",
+    "active": "Ativo",
+    "create": "Criar Usuário",
+    "edit": "Editar Usuário",
+    "delete": "Excluir Usuário",
+    "deleteConfirm": "Tem certeza que deseja excluir este usuário?",
+    "success": {
+      "created": "Usuário criado com sucesso",
+      "updated": "Usuário atualizado com sucesso",
+      "deleted": "Usuário excluído com sucesso"
+    },
+    "error": {
+      "create": "Erro ao criar usuário",
+      "update": "Erro ao atualizar usuário",
+      "delete": "Erro ao excluir usuário"
+    }
   }
 }
