@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import { AuthCard } from "../AuthCard";
 
 describe("AuthCard", () => {
@@ -10,5 +9,14 @@ describe("AuthCard", () => {
       </AuthCard>
     );
     expect(screen.getByText("Conteúdo de teste")).toBeInTheDocument();
+  });
+
+  it("bate o snapshot do AuthCard", () => {
+    const { asFragment } = render(
+      <AuthCard>
+        <div>Snapshot test</div>
+      </AuthCard>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });
