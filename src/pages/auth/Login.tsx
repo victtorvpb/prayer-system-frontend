@@ -257,10 +257,7 @@ export default function Login() {
           </Button>
         </form>
         <Typography variant="body2">
-          {t("login.noAccount")}{" "}
-          <Link component={RouterLink} to="/cadastrar" underline="hover">
-            {t("login.create")}
-          </Link>
+          {/* Link para cadastro removido */}
         </Typography>
       </AuthCard>
     </Box>
