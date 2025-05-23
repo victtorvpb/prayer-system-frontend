@@ -75,7 +75,20 @@
     "nameRequired": "El nombre es obligatorio",
     "emailRequired": "El correo electrónico es obligatorio",
     "invalidEmail": "Correo electrónico inválido",
-    "roleRequired": "El rol es obligatorio"
+    "roleRequired": "El rol es obligatorio",
+    "password": "Contraseña",
+    "passwordRequired": "La contraseña es obligatoria",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "confirmPassword": "Confirmar Contraseña",
+    "confirmPasswordRequired": "La confirmación de contraseña es obligatoria",
+    "passwordsMustMatch": "Las contraseñas deben coincidir",
+    "success": "¡Usuario registrado con éxito!",
+    "error": "Error al registrar usuario",
+    "addNew": "Agregar Nuevo",
+    "edit": "Editar Usuario",
+    "deleteConfirmTitle": "Confirmar Eliminación",
+    "deleteConfirmMessage": "¿Está seguro de que desea eliminar al usuario {{name}}?",
+    "status": "Estado"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -120,7 +133,14 @@
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
-    "info": "Información"
+    "info": "Información",
+    "search": "Buscar",
+    "actions": "Acciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "active": "Activo",
+    "inactive": "Inactivo"
   },
   "navbar": {
     "home": "Inicio",
@@ -153,17 +173,23 @@
     "submit": "Guardar Agenda"
   },
   "prayerPoints": {
+    "title": "Puntos de Oración",
+    "addNew": "Agregar Nuevo",
+    "create": "Crear Punto de Oración",
+    "edit": "Editar Punto de Oración",
     "category": "Categoría",
     "categoryRequired": "La categoría es obligatoria",
-    "description": "Descripción de la agenda",
-    "descriptionRequired": "La descripción es obligatoria",
-    "descriptionMaxLength": "La descripción debe tener como máximo 200 caracteres",
+    "prayerPoint": "Punto de Oración",
+    "prayerPointRequired": "El punto de oración es obligatorio",
+    "prayerPointMaxLength": "El punto de oración debe tener un máximo de 300 caracteres",
     "remainingChars": "{{count}} caracteres restantes",
-    "bibleReference": "Referencia Bíblica",
-    "bibleReferenceRequired": "La referencia bíblica es obligatoria",
-    "bibleReferencePlaceholder": "Ej: Juan 3:16",
+    "biblicalBase": "Base Bíblica",
+    "biblicalBaseRequired": "La base bíblica es obligatoria",
+    "status": "Estado",
     "active": "Activo",
     "inactive": "Inactivo",
-    "save": "Guardar Punto de Oración"
+    "saveSuccess": "¡Punto de oración guardado con éxito!",
+    "deleteConfirmTitle": "Confirmar Eliminación",
+    "deleteConfirmMessage": "¿Está seguro de que desea eliminar el punto de oración de la categoría {{category}}?"
   }
 }

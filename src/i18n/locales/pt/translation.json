@@ -75,7 +75,20 @@
     "nameRequired": "Nome é obrigatório",
     "emailRequired": "E-mail é obrigatório",
     "invalidEmail": "E-mail inválido",
-    "roleRequired": "Perfil é obrigatório"
+    "roleRequired": "Perfil é obrigatório",
+    "password": "Senha",
+    "passwordRequired": "Senha é obrigatória",
+    "passwordMinLength": "A senha deve ter no mínimo 6 caracteres",
+    "confirmPassword": "Confirmar Senha",
+    "confirmPasswordRequired": "Confirmação de senha é obrigatória",
+    "passwordsMustMatch": "As senhas devem ser iguais",
+    "success": "Usuário cadastrado com sucesso!",
+    "error": "Erro ao cadastrar usuário",
+    "addNew": "Adicionar Novo",
+    "edit": "Editar Usuário",
+    "deleteConfirmTitle": "Confirmar Exclusão",
+    "deleteConfirmMessage": "Tem certeza que deseja excluir o usuário {{name}}?",
+    "status": "Status"
   },
   "login": {
     "title": "Login",
@@ -122,22 +135,35 @@
     "submit": "Salvar Pauta"
   },
   "prayerPoints": {
+    "title": "Pontos de Oração",
+    "addNew": "Adicionar Novo",
+    "create": "Criar Ponto de Oração",
+    "edit": "Editar Ponto de Oração",
     "category": "Categoria",
-    "categoryRequired": "Categoria é obrigatória",
-    "description": "Descrição da pauta",
-    "descriptionRequired": "Descrição é obrigatória",
-    "descriptionMaxLength": "A descrição deve ter no máximo 200 caracteres",
+    "categoryRequired": "A categoria é obrigatória",
+    "prayerPoint": "Ponto de Oração",
+    "prayerPointRequired": "O ponto de oração é obrigatório",
+    "prayerPointMaxLength": "O ponto de oração deve ter no máximo 300 caracteres",
     "remainingChars": "{{count}} caracteres restantes",
-    "bibleReference": "Referência Bíblica",
-    "bibleReferenceRequired": "Referência bíblica é obrigatória",
-    "bibleReferencePlaceholder": "Ex: João 3:16",
+    "biblicalBase": "Base Bíblica",
+    "biblicalBaseRequired": "A base bíblica é obrigatória",
+    "status": "Status",
     "active": "Ativo",
-    "inactive": "Inativo"
+    "inactive": "Inativo",
+    "saveSuccess": "Ponto de oração salvo com sucesso!",
+    "deleteConfirmTitle": "Confirmar Exclusão",
+    "deleteConfirmMessage": "Tem certeza que deseja excluir o ponto de oração da categoria {{category}}?"
   },
   "common": {
+    "actions": "Ações",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "cancel": "Cancelar",
     "save": "Salvar",
-    "clear": "Limpar",
-    "saveSuccess": "Salvo com sucesso!",
-    "loading": "Carregando..."
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso"
   }
 }

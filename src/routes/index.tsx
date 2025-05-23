@@ -5,8 +5,12 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
-import CadastrarUsuario from "../pages/admin/CadastrarUsuario";
+import UserList from "../pages/admin/UserList";
+import CreateUser from "../pages/admin/CreateUser";
+import EditUser from "../pages/admin/EditUser";
 import PrayerPoints from "../pages/admin/PrayerPoints";
+import CreatePrayerPoint from "../pages/admin/CreatePrayerPoint";
+import EditPrayerPoint from "../pages/admin/EditPrayerPoint";
 
 // Componente para proteger rotas de administrador
 function AdminRoute({ children }: { children: React.ReactNode }) {
@@ -37,12 +41,28 @@ export function AppRoutes() {
     <Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* Rota protegida para administrador */}
+        {/* Rotas protegidas para administrador */}
         <Route
           path="/register-user"
           element={
             <AdminRoute>
-              <CadastrarUsuario />
+              <UserList />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/register-user/create"
+          element={
+            <AdminRoute>
+              <CreateUser />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/register-user/edit/:id"
+          element={
+            <AdminRoute>
+              <EditUser />
             </AdminRoute>
           }
         />
@@ -51,6 +71,22 @@ export function AppRoutes() {
           element={
             <AdminRoute>
               <PrayerPoints />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/prayer-points/create"
+          element={
+            <AdminRoute>
+              <CreatePrayerPoint />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/prayer-points/edit/:id"
+          element={
+            <AdminRoute>
+              <EditPrayerPoint />
             </AdminRoute>
           }
         />

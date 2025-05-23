@@ -75,7 +75,20 @@
     "nameRequired": "Name is required",
     "emailRequired": "Email is required",
     "invalidEmail": "Invalid email",
-    "roleRequired": "Role is required"
+    "roleRequired": "Role is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordRequired": "Password confirmation is required",
+    "passwordsMustMatch": "Passwords must match",
+    "success": "User registered successfully!",
+    "error": "Error registering user",
+    "addNew": "Add New",
+    "edit": "Edit User",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmMessage": "Are you sure you want to delete the user {{name}}?",
+    "status": "Status"
   },
   "login": {
     "title": "Login",
@@ -120,7 +133,14 @@
     "error": "Error",
     "success": "Success",
     "warning": "Warning",
-    "info": "Information"
+    "info": "Information",
+    "save": "Save",
+    "saveSuccess": "Saved successfully!",
+    "actions": "Actions",
+    "active": "Active",
+    "inactive": "Inactive",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "navbar": {
     "home": "Home",
@@ -153,17 +173,23 @@
     "submit": "Save Agenda"
   },
   "prayerPoints": {
+    "title": "Prayer Points",
+    "addNew": "Add New",
+    "create": "Create Prayer Point",
+    "edit": "Edit Prayer Point",
     "category": "Category",
     "categoryRequired": "Category is required",
-    "description": "Agenda description",
-    "descriptionRequired": "Description is required",
-    "descriptionMaxLength": "Description must be at most 200 characters",
+    "prayerPoint": "Prayer Point",
+    "prayerPointRequired": "Prayer point is required",
+    "prayerPointMaxLength": "Prayer point must have a maximum of 300 characters",
     "remainingChars": "{{count}} characters remaining",
-    "bibleReference": "Bible Reference",
-    "bibleReferenceRequired": "Bible reference is required",
-    "bibleReferencePlaceholder": "Ex: John 3:16",
+    "biblicalBase": "Biblical Base",
+    "biblicalBaseRequired": "Biblical base is required",
+    "status": "Status",
     "active": "Active",
     "inactive": "Inactive",
-    "save": "Save Prayer Point"
+    "saveSuccess": "Prayer point saved successfully!",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmMessage": "Are you sure you want to delete the prayer point from category {{category}}?"
   }
 }

@@ -26,75 +26,72 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
-interface PrayerPoint {
+interface User {
   id: number;
-  category: string;
-  prayerPoint: string;
-  biblicalBase: string;
-  isActive: boolean;
+  nome: string;
+  email: string;
+  role: "admin" | "user";
+  ativo: boolean;
 }
 
 // Mock data - substitua por dados reais da sua API
-const mockPrayerPoints: PrayerPoint[] = [
+const mockUsers: User[] = [
   {
     id: 1,
-    category: "1LUV",
-    prayerPoint:
-      "Oração pela unidade e comunhão entre os membros do 1LUV, para que possam crescer juntos em amor e propósito.",
-    biblicalBase: "João 17:21",
-    isActive: true,
+    nome: "João Silva",
+    email: "joao@email.com",
+    role: "admin" as const,
+    ativo: true,
   },
   {
     id: 2,
-    category: "DSM",
-    prayerPoint:
-      "Oração pelo ministério de louvor, para que cada membro seja usado por Deus para levar adoração genuína.",
-    biblicalBase: "1 Coríntios 12:12",
-    isActive: true,
+    nome: "Maria Santos",
+    email: "maria@email.com",
+    role: "user" as const,
+    ativo: true,
   },
   {
     id: 3,
-    category: "FACULDADE DUNAMIS",
-    prayerPoint:
-      "Oração pelos alunos e professores, para que sejam capacitados e usados por Deus em suas áreas de atuação.",
-    biblicalBase: "2 Timóteo 2:15",
-    isActive: false,
+    nome: "Pedro Oliveira",
+    email: "pedro@email.com",
+    role: "user" as const,
+    ativo: false,
   },
 ];
 
-export default function PrayerPoints() {
+export default function UserList() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const theme = useTheme();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedPoint, setSelectedPoint] = useState<PrayerPoint | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const handleAddNew = () => {
-    navigate("/prayer-points/create");
+    navigate("/register-user/create");
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/prayer-points/edit/${id}`);
+    navigate(`/register-user/edit/${id}`);
   };
 
-  const handleDeleteClick = (point: PrayerPoint) => {
-    setSelectedPoint(point);
+  const handleDeleteClick = (user: User) => {
+    setSelectedUser(user);
     setDeleteDialogOpen(true);
   };
 
   const handleDeleteConfirm = () => {
-    if (selectedPoint) {
-      // Aqui você pode implementar a chamada à API para excluir o ponto de oração
-      console.log("Excluindo ponto de oração:", selectedPoint.id);
+    if (selectedUser) {
+      // Aqui você pode implementar a chamada à API para excluir o usuário
+      console.log("Excluindo usuário:", selectedUser.id);
       // Após a exclusão bem-sucedida, você pode atualizar a lista
       setDeleteDialogOpen(false);
-      setSelectedPoint(null);
+      setSelectedUser(null);
     }
   };
 
   const handleDeleteCancel = () => {
     setDeleteDialogOpen(false);
-    setSelectedPoint(null);
+    setSelectedUser(null);
   };
 
   return (
@@ -116,7 +113,7 @@ export default function PrayerPoints() {
             letterSpacing: "0.5px",
           }}
         >
-          {t("prayerPoints.title")}
+          {t("register.title")}
         </Typography>
         <Button
           variant="contained"
@@ -135,7 +132,7 @@ export default function PrayerPoints() {
             },
           }}
         >
-          {t("prayerPoints.addNew")}
+          {t("register.addNew")}
         </Button>
       </Box>
 
@@ -151,16 +148,16 @@ export default function PrayerPoints() {
           <TableHead>
             <TableRow sx={{ backgroundColor: theme.palette.grey[50] }}>
               <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("prayerPoints.category")}
+                {t("register.name")}
               </TableCell>
               <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("prayerPoints.prayerPoint")}
+                {t("register.email")}
               </TableCell>
               <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("prayerPoints.biblicalBase")}
+                {t("register.role")}
               </TableCell>
               <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("prayerPoints.status")}
+                {t("register.status")}
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 600, py: 2 }}>
                 {t("common.actions")}
@@ -168,9 +165,9 @@ export default function PrayerPoints() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mockPrayerPoints.map((point) => (
+            {mockUsers.map((user) => (
               <TableRow
-                key={point.id}
+                key={user.id}
                 sx={{
                   "&:hover": {
                     backgroundColor: theme.palette.grey[50],
@@ -179,9 +176,15 @@ export default function PrayerPoints() {
                 }}
               >
                 <TableCell sx={{ py: 2 }}>
+                  <Typography sx={{ fontWeight: 500 }}>{user.nome}</Typography>
+                </TableCell>
+                <TableCell sx={{ py: 2 }}>
+                  <Typography color="text.secondary">{user.email}</Typography>
+                </TableCell>
+                <TableCell sx={{ py: 2 }}>
                   <Chip
-                    label={point.category}
-                    color="primary"
+                    label={t(`register.${user.role}`)}
+                    color={user.role === "admin" ? "primary" : "default"}
                     size="small"
                     sx={{
                       fontWeight: 500,
@@ -191,33 +194,11 @@ export default function PrayerPoints() {
                   />
                 </TableCell>
                 <TableCell sx={{ py: 2 }}>
-                  <Typography
-                    sx={{
-                      maxWidth: 400,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {point.prayerPoint}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ py: 2 }}>
-                  <Typography
-                    color="text.secondary"
-                    sx={{
-                      fontWeight: 500,
-                    }}
-                  >
-                    {point.biblicalBase}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ py: 2 }}>
                   <Chip
                     label={
-                      point.isActive ? t("common.active") : t("common.inactive")
+                      user.ativo ? t("common.active") : t("common.inactive")
                     }
-                    color={point.isActive ? "success" : "default"}
+                    color={user.ativo ? "success" : "default"}
                     size="small"
                     sx={{
                       fontWeight: 500,
@@ -231,7 +212,7 @@ export default function PrayerPoints() {
                     <IconButton
                       size="small"
                       color="primary"
-                      onClick={() => handleEdit(point.id)}
+                      onClick={() => handleEdit(user.id)}
                       sx={{
                         mr: 1,
                         "&:hover": {
@@ -249,7 +230,7 @@ export default function PrayerPoints() {
                     <IconButton
                       size="small"
                       color="error"
-                      onClick={() => handleDeleteClick(point)}
+                      onClick={() => handleDeleteClick(user)}
                       sx={{
                         "&:hover": {
                           backgroundColor: alpha(theme.palette.error.main, 0.1),
@@ -273,11 +254,11 @@ export default function PrayerPoints() {
         maxWidth="xs"
         fullWidth
       >
-        <DialogTitle>{t("prayerPoints.deleteConfirmTitle")}</DialogTitle>
+        <DialogTitle>{t("register.deleteConfirmTitle")}</DialogTitle>
         <DialogContent>
           <Typography>
-            {t("prayerPoints.deleteConfirmMessage", {
-              category: selectedPoint?.category,
+            {t("register.deleteConfirmMessage", {
+              name: selectedUser?.nome,
             })}
           </Typography>
         </DialogContent>
