@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Chip } from "@mui/material";
 import DataTable, { type Column } from "../../../components/DataTable";
 import type { User } from "./types";
-import { Box, Typography, Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 
 // Mock data - substitua por dados reais da sua API
 const mockUsers: User[] = [
@@ -74,36 +72,13 @@ export default function UserList() {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 3,
-        }}
-      >
-        <Typography variant="h5" component="h1">
-          {t("users.title")}
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleCreate}
-          aria-label={t("common.create")}
-        >
-          {t("common.create")}
-        </Button>
-      </Box>
-
-      <DataTable
-        title={t("users.title")}
-        columns={columns}
-        data={mockUsers}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onCreate={handleCreate}
-      />
-    </Box>
+    <DataTable
+      title={t("users.title")}
+      columns={columns}
+      data={mockUsers}
+      onEdit={handleEdit}
+      onDelete={handleDelete}
+      onCreate={handleCreate}
+    />
   );
 }
