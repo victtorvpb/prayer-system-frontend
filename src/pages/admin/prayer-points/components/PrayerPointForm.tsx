@@ -10,18 +10,11 @@ import {
 import { Controller } from "react-hook-form";
 import type { Control, FieldErrors } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-interface PrayerPointFormData {
-  category: string;
-  prayerPoint: string;
-  biblicalBase: string;
-  active: boolean;
-}
+import type { PrayerPointFormData } from "../types";
 
 interface PrayerPointFormProps {
   control: Control<PrayerPointFormData>;
   errors: FieldErrors<PrayerPointFormData>;
-  isEdit?: boolean;
 }
 
 const categories = [
@@ -41,7 +34,6 @@ const categories = [
 export default function PrayerPointForm({
   control,
   errors,
-  isEdit = false,
 }: PrayerPointFormProps) {
   const { t } = useTranslation();
 

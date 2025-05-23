@@ -1,60 +1,32 @@
-import {
-  Box,
-  Typography,
-  Button,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  IconButton,
-  Chip,
-  Tooltip,
-  useTheme,
-  alpha,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-
-interface User {
-  id: number;
-  nome: string;
-  email: string;
-  role: "admin" | "user";
-  ativo: boolean;
-}
+import { Chip } from "@mui/material";
+import DataTable, { type Column } from "../../../components/DataTable";
+import type { User } from "./types";
+import { Box, Typography, Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 // Mock data - substitua por dados reais da sua API
 const mockUsers: User[] = [
   {
-    id: 1,
+    id: "1",
     nome: "João Silva",
     email: "joao@email.com",
-    role: "admin" as const,
+    role: "admin",
     ativo: true,
   },
   {
-    id: 2,
+    id: "2",
     nome: "Maria Santos",
     email: "maria@email.com",
-    role: "user" as const,
+    role: "user",
     ativo: true,
   },
   {
-    id: 3,
+    id: "3",
     nome: "Pedro Oliveira",
     email: "pedro@email.com",
-    role: "user" as const,
+    role: "user",
     ativo: false,
   },
 ];
@@ -62,36 +34,43 @@ const mockUsers: User[] = [
 export default function UserList() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const theme = useTheme();
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  const handleAddNew = () => {
-    navigate("/register-user/create");
+  const columns: Column<User>[] = [
+    { field: "nome", headerName: t("users.name") },
+    { field: "email", headerName: t("users.email") },
+    {
+      field: "role",
+      headerName: t("users.role"),
+      renderCell: (row) => (
+        <Chip
+          label={t(`register.${row.role}`)}
+          color={row.role === "admin" ? "primary" : "default"}
+          size="small"
+          sx={{
+            fontWeight: 500,
+            borderRadius: 1,
+            px: 1,
+          }}
+        />
+      ),
+    },
+    {
+      field: "ativo",
+      headerName: t("users.active"),
+    },
+  ];
+
+  const handleEdit = (user: User) => {
+    navigate(`/admin/users/${user.id}/edit`);
   };
 
-  const handleEdit = (id: number) => {
-    navigate(`/register-user/edit/${id}`);
+  const handleDelete = (user: User) => {
+    console.log("Delete user:", user);
+    // TODO: Implementar chamada à API
   };
 
-  const handleDeleteClick = (user: User) => {
-    setSelectedUser(user);
-    setDeleteDialogOpen(true);
-  };
-
-  const handleDeleteConfirm = () => {
-    if (selectedUser) {
-      // Aqui você pode implementar a chamada à API para excluir o usuário
-      console.log("Excluindo usuário:", selectedUser.id);
-      // Após a exclusão bem-sucedida, você pode atualizar a lista
-      setDeleteDialogOpen(false);
-      setSelectedUser(null);
-    }
-  };
-
-  const handleDeleteCancel = () => {
-    setDeleteDialogOpen(false);
-    setSelectedUser(null);
+  const handleCreate = () => {
+    navigate("/admin/users/create");
   };
 
   return (
@@ -101,180 +80,30 @@ export default function UserList() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          mb: 4,
-          px: 2,
+          mb: 3,
         }}
       >
-        <Typography
-          variant="h5"
-          sx={{
-            fontWeight: 600,
-            color: "primary.main",
-            letterSpacing: "0.5px",
-          }}
-        >
-          {t("register.title")}
+        <Typography variant="h5" component="h1">
+          {t("users.title")}
         </Typography>
         <Button
           variant="contained"
-          color="primary"
           startIcon={<AddIcon />}
-          onClick={handleAddNew}
-          sx={{
-            px: 3,
-            py: 1,
-            borderRadius: 2,
-            textTransform: "none",
-            fontWeight: 500,
-            boxShadow: theme.shadows[2],
-            "&:hover": {
-              boxShadow: theme.shadows[4],
-            },
-          }}
+          onClick={handleCreate}
+          aria-label={t("common.create")}
         >
-          {t("register.addNew")}
+          {t("common.create")}
         </Button>
       </Box>
 
-      <TableContainer
-        component={Paper}
-        sx={{
-          boxShadow: theme.shadows[2],
-          borderRadius: 2,
-          overflow: "hidden",
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow sx={{ backgroundColor: theme.palette.grey[50] }}>
-              <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("register.name")}
-              </TableCell>
-              <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("register.email")}
-              </TableCell>
-              <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("register.role")}
-              </TableCell>
-              <TableCell sx={{ fontWeight: 600, py: 2 }}>
-                {t("register.status")}
-              </TableCell>
-              <TableCell align="right" sx={{ fontWeight: 600, py: 2 }}>
-                {t("common.actions")}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {mockUsers.map((user) => (
-              <TableRow
-                key={user.id}
-                sx={{
-                  "&:hover": {
-                    backgroundColor: theme.palette.grey[50],
-                    transition: "background-color 0.2s",
-                  },
-                }}
-              >
-                <TableCell sx={{ py: 2 }}>
-                  <Typography sx={{ fontWeight: 500 }}>{user.nome}</Typography>
-                </TableCell>
-                <TableCell sx={{ py: 2 }}>
-                  <Typography color="text.secondary">{user.email}</Typography>
-                </TableCell>
-                <TableCell sx={{ py: 2 }}>
-                  <Chip
-                    label={t(`register.${user.role}`)}
-                    color={user.role === "admin" ? "primary" : "default"}
-                    size="small"
-                    sx={{
-                      fontWeight: 500,
-                      borderRadius: 1,
-                      px: 1,
-                    }}
-                  />
-                </TableCell>
-                <TableCell sx={{ py: 2 }}>
-                  <Chip
-                    label={
-                      user.ativo ? t("common.active") : t("common.inactive")
-                    }
-                    color={user.ativo ? "success" : "default"}
-                    size="small"
-                    sx={{
-                      fontWeight: 500,
-                      borderRadius: 1,
-                      px: 1,
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="right" sx={{ py: 2 }}>
-                  <Tooltip title={t("common.edit")}>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      onClick={() => handleEdit(user.id)}
-                      sx={{
-                        mr: 1,
-                        "&:hover": {
-                          backgroundColor: alpha(
-                            theme.palette.primary.main,
-                            0.1
-                          ),
-                        },
-                      }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title={t("common.delete")}>
-                    <IconButton
-                      size="small"
-                      color="error"
-                      onClick={() => handleDeleteClick(user)}
-                      sx={{
-                        "&:hover": {
-                          backgroundColor: alpha(theme.palette.error.main, 0.1),
-                        },
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* Diálogo de confirmação de exclusão */}
-      <Dialog
-        open={deleteDialogOpen}
-        onClose={handleDeleteCancel}
-        maxWidth="xs"
-        fullWidth
-      >
-        <DialogTitle>{t("register.deleteConfirmTitle")}</DialogTitle>
-        <DialogContent>
-          <Typography>
-            {t("register.deleteConfirmMessage", {
-              name: selectedUser?.nome,
-            })}
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDeleteCancel} color="primary">
-            {t("common.cancel")}
-          </Button>
-          <Button
-            onClick={handleDeleteConfirm}
-            color="error"
-            variant="contained"
-          >
-            {t("common.delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DataTable
+        title={t("users.title")}
+        columns={columns}
+        data={mockUsers}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onCreate={handleCreate}
+      />
     </Box>
   );
 }

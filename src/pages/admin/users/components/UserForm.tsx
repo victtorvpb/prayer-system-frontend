@@ -10,15 +10,7 @@ import {
 import { Controller } from "react-hook-form";
 import type { Control, FieldErrors } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-interface UserFormData {
-  nome: string;
-  email: string;
-  senha?: string;
-  confirmarSenha?: string;
-  role: "admin" | "user";
-  ativo: boolean;
-}
+import type { UserFormData } from "../types";
 
 interface UserFormProps {
   control: Control<UserFormData>;
