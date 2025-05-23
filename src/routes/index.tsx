@@ -5,12 +5,12 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
-import UserList from "../pages/admin/UserList";
-import CreateUser from "../pages/admin/CreateUser";
-import EditUser from "../pages/admin/EditUser";
-import PrayerPoints from "../pages/admin/PrayerPoints";
-import CreatePrayerPoint from "../pages/admin/CreatePrayerPoint";
-import EditPrayerPoint from "../pages/admin/EditPrayerPoint";
+import { UserList, CreateUser, EditUser } from "../pages/admin/users";
+import {
+  PrayerPoints,
+  CreatePrayerPoint,
+  EditPrayerPoint,
+} from "../pages/admin/prayer-points";
 
 // Componente para proteger rotas de administrador
 function AdminRoute({ children }: { children: React.ReactNode }) {
