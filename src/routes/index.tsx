@@ -3,7 +3,7 @@ import Login from "../pages/auth/Login";
 // import Register from "../pages/auth/Register"; // Removido
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navigation/Navbar";
 import { useAuth } from "../hooks/useAuth";
 import { UserList, CreateUser, EditUser } from "../pages/admin/users";
 import {

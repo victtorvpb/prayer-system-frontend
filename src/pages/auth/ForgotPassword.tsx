@@ -10,8 +10,8 @@ import {
 import LockResetIcon from "@mui/icons-material/LockReset";
 import { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { AuthCard } from "../../components/AuthCard";
-import LanguageSelector from "../../components/LanguageSelector";
+import { AuthCard } from "../../components/ui/AuthCard";
+import LanguageSelector from "../../components/ui/LanguageSelector";
 import { useForm, Controller } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

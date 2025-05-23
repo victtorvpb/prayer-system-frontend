@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import UserForm from "./components/UserForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormLayout from "../../../components/FormLayout";
+import FormLayout from "../../../components/layout/FormLayout";
 import { createUserSchema } from "../../../validations/schemas";
 import type { UserFormData } from "./types";
 

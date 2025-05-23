@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import PrayerPointForm from "./components/PrayerPointForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormLayout from "../../../components/FormLayout";
+import FormLayout from "../../../components/layout/FormLayout";
 import { createPrayerPointSchema } from "../../../validations/schemas";
-import type { PrayerPoint, PrayerPointFormData } from "../../../types";
+import type { PrayerPoint, PrayerPointFormData } from "./types";
 
 // Mock data - substituir por chamada à API
 const mockPrayerPoint: PrayerPoint = {

@@ -1,6 +1,6 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
-import { useLanguage } from "../hooks/useLanguage";
+import { useLanguage } from "../../hooks/useLanguage";
 import { US, BR, ES } from "country-flag-icons/react/3x2";
 
 const LANGUAGES = [

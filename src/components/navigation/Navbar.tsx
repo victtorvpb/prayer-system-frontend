@@ -23,10 +23,10 @@ import {
   ExpandLess as ExpandLessIcon,
 } from "@mui/icons-material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "./LanguageSelector";
+import LanguageSelector from "../ui/LanguageSelector";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 

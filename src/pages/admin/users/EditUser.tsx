@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import UserForm from "./components/UserForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormLayout from "../../../components/FormLayout";
+import FormLayout from "../../../components/layout/FormLayout";
 import { editUserSchema } from "../../../validations/schemas";
-import type { User, UserFormData } from "../../../types";
+import type { User, UserFormData } from "./types";
 
 // Mock data - substituir por chamada à API
 const mockUser: User = {

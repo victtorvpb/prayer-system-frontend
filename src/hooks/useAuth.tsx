@@ -7,12 +7,7 @@ import {
   useEffect,
 } from "react";
 import type { ReactNode } from "react";
-
-// Novo tipo de usuário com role
-interface User {
-  email: string;
-  role: "user" | "admin";
-}
+import type { User } from "../types";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -59,7 +54,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback((role: "user" | "admin" = "user") => {
     try {
       localStorage.setItem("mock_auth", "true");
-      const userData: User = { email: "teste@teste.com", role };
+      const userData: User = {
+        id: "1",
+        nome: "Usuário Teste",
+        email: "teste@teste.com",
+        role,
+        ativo: true,
+      };
       localStorage.setItem("mock_user", JSON.stringify(userData));
       setIsAuthenticated(true);
       setUser(userData);
