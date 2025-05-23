@@ -60,8 +60,13 @@ export default function Login() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      if (data.email === "teste@teste.com" && data.senha === "123456") {
-        login();
+      if (
+        (data.email === "teste@teste.com" ||
+          data.email === "admin@admin.com") &&
+        data.senha === "123456"
+      ) {
+        const role = data.email === "admin@admin.com" ? "admin" : "user";
+        login(role);
         setSnackbar({
           open: true,
           message: t("login.mockSuccess"),

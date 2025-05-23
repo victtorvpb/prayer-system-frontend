@@ -8,14 +8,20 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 
-interface AuthContextType {
-  isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
-  user: { email: string } | null;
+// Novo tipo de usuário com role
+interface User {
+  email: string;
+  role: "user" | "admin";
 }
 
-// Criar o contexto com valor inicial mais explícito
+interface AuthContextType {
+  isAuthenticated: boolean;
+  login: (role?: "user" | "admin") => void;
+  logout: () => void;
+  user: User | null;
+}
+
+// Valor inicial do contexto
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   user: null,
@@ -36,19 +42,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const getUserFromStorage = () => {
+    const userValue = localStorage.getItem("mock_user");
+    return userValue ? (JSON.parse(userValue) as User) : null;
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return getAuthStatus();
   });
 
-  const [user, setUser] = useState<{ email: string } | null>(() => {
-    return isAuthenticated ? { email: "teste@teste.com" } : null;
+  const [user, setUser] = useState<User | null>(() => {
+    return isAuthenticated ? getUserFromStorage() : null;
   });
 
-  const login = useCallback(() => {
+  // Agora o login pode receber o role
+  const login = useCallback((role: "user" | "admin" = "user") => {
     try {
       localStorage.setItem("mock_auth", "true");
+      const userData: User = { email: "teste@teste.com", role };
+      localStorage.setItem("mock_user", JSON.stringify(userData));
       setIsAuthenticated(true);
-      setUser({ email: "teste@teste.com" });
+      setUser(userData);
     } catch (err) {
       console.error("Error setting localStorage:", err);
     }
@@ -57,6 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     try {
       localStorage.removeItem("mock_auth");
+      localStorage.removeItem("mock_user");
       setIsAuthenticated(false);
       setUser(null);
     } catch (err) {
@@ -69,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const syncAuth = () => {
       const newStatus = getAuthStatus();
       setIsAuthenticated(newStatus);
-      setUser(newStatus ? { email: "teste@teste.com" } : null);
+      setUser(newStatus ? getUserFromStorage() : null);
     };
 
     window.addEventListener("storage", syncAuth);

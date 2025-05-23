@@ -37,7 +37,25 @@
     "community": "Comunidad",
     "prayerGroups": "Grupos de Oración",
     "events": "Eventos",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "admin": "Administración"
+  },
+  "admin": {
+    "registerUser": "Registrar Usuario"
+  },
+  "register": {
+    "title": "Registrar Usuario",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "active": "Activo",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "submit": "Registrar",
+    "nameRequired": "El nombre es obligatorio",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "invalidEmail": "Correo electrónico inválido",
+    "roleRequired": "El rol es obligatorio"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -52,21 +70,6 @@
     "minPassword": "Mínimo 6 caracteres",
     "mockSuccess": "¡Inicio de sesión exitoso!",
     "mockError": "Correo o contraseña inválidos."
-  },
-  "register": {
-    "title": "Crear cuenta",
-    "name": "Nombre",
-    "email": "Correo electrónico",
-    "password": "Contraseña",
-    "confirm": "Confirmar contraseña",
-    "submit": "Registrarse",
-    "already": "¿Ya tienes una cuenta?",
-    "back": "Volver al inicio de sesión",
-    "required": "Campo obligatorio",
-    "invalidEmail": "Correo inválido",
-    "minPassword": "Mínimo 6 caracteres",
-    "notMatch": "Las contraseñas no coinciden",
-    "mockSuccess": "¡Registro exitoso! Ya puedes iniciar sesión."
   },
   "forgot": {
     "title": "Olvidé mi contraseña",

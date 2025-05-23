@@ -37,7 +37,25 @@
     "community": "Community",
     "prayerGroups": "Prayer Groups",
     "events": "Events",
-    "about": "About"
+    "about": "About",
+    "admin": "Admin"
+  },
+  "admin": {
+    "registerUser": "Register User"
+  },
+  "register": {
+    "title": "Register User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "active": "Active",
+    "admin": "Administrator",
+    "user": "User",
+    "submit": "Register",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email",
+    "roleRequired": "Role is required"
   },
   "login": {
     "title": "Login",
@@ -53,29 +71,14 @@
     "mockSuccess": "Login successful!",
     "mockError": "Invalid email or password."
   },
-  "register": {
-    "title": "Create account",
-    "name": "Name",
-    "email": "Email",
-    "password": "Password",
-    "confirm": "Confirm password",
-    "submit": "Register",
-    "already": "Already have an account?",
-    "back": "Back to login",
-    "required": "Required field",
-    "invalidEmail": "Invalid email",
-    "minPassword": "At least 6 characters",
-    "notMatch": "Passwords do not match",
-    "mockSuccess": "Registration successful! You can now log in."
-  },
   "forgot": {
-    "title": "Forgot password",
-    "info": "Enter your email to receive password reset instructions.",
+    "title": "Forgot Password",
+    "info": "Enter your email to receive reset instructions.",
     "email": "Email",
-    "submit": "Send instructions",
-    "back": "Back to login",
+    "submit": "Send Instructions",
+    "back": "Back to Login",
     "required": "Required field",
     "invalidEmail": "Invalid email",
-    "mockSuccess": "If the email exists, you will receive instructions soon."
+    "mockSuccess": "If the email exists, you will receive instructions shortly."
   }
 }

@@ -37,7 +37,25 @@
     "community": "Comunidade",
     "prayerGroups": "Grupos de Oração",
     "events": "Eventos",
-    "about": "Sobre"
+    "about": "Sobre",
+    "admin": "Administração"
+  },
+  "admin": {
+    "registerUser": "Cadastrar Usuário"
+  },
+  "register": {
+    "title": "Cadastrar Usuário",
+    "name": "Nome",
+    "email": "E-mail",
+    "role": "Perfil",
+    "active": "Ativo",
+    "admin": "Administrador",
+    "user": "Usuário",
+    "submit": "Cadastrar",
+    "nameRequired": "Nome é obrigatório",
+    "emailRequired": "E-mail é obrigatório",
+    "invalidEmail": "E-mail inválido",
+    "roleRequired": "Perfil é obrigatório"
   },
   "login": {
     "title": "Login",
@@ -52,21 +70,6 @@
     "minPassword": "Mínimo 6 caracteres",
     "mockSuccess": "Login realizado com sucesso!",
     "mockError": "E-mail ou senha inválidos."
-  },
-  "register": {
-    "title": "Criar conta",
-    "name": "Nome",
-    "email": "E-mail",
-    "password": "Senha",
-    "confirm": "Confirmar senha",
-    "submit": "Cadastrar",
-    "already": "Já tem uma conta?",
-    "back": "Voltar ao login",
-    "required": "Campo obrigatório",
-    "invalidEmail": "E-mail inválido",
-    "minPassword": "Mínimo 6 caracteres",
-    "notMatch": "As senhas não coincidem",
-    "mockSuccess": "Cadastro realizado! Você já pode fazer login."
   },
   "forgot": {
     "title": "Esqueci minha senha",

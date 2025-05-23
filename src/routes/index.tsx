@@ -5,6 +5,16 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
+import CadastrarUsuario from "../pages/admin/CadastrarUsuario";
+
+// Componente para proteger rotas de administrador
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+  if (user?.role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
+  return <>{children}</>;
+}
 
 export function AppRoutes() {
   const { isAuthenticated } = useAuth();
@@ -26,6 +36,15 @@ export function AppRoutes() {
     <Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
+        {/* Rota protegida para administrador */}
+        <Route
+          path="/register-user"
+          element={
+            <AdminRoute>
+              <CadastrarUsuario />
+            </AdminRoute>
+          }
+        />
         {/* Outras rotas protegidas */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

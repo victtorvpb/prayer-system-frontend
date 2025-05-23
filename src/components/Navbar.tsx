@@ -47,6 +47,12 @@ const NAV_ITEMS: Array<NavItem> = [
   { label: "nav.about", href: "/sobre" },
 ];
 
+// Adicionando as rotas administrativas
+const ADMIN_ITEMS: Array<NavItem> = [
+  { label: "admin.registerUser", href: "/register-user" },
+  // Adicione mais rotas administrativas aqui
+];
+
 // Simulação de rota ativa (em produção, use React Router)
 const getActiveRoute = () => window.location.pathname;
 
@@ -82,6 +88,10 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
     logout();
     navigate("/login");
   };
+
+  // Novo: Verifica se o usuário é admin
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   const drawer = (
     <Box
@@ -202,6 +212,65 @@ export default function Navbar({ children }: { children?: React.ReactNode }) {
               <ListItemText primary={t(item.label)} />
             </ListItemButton>
           )
+        )}
+        {/* Nova seção Admin visível apenas para role admin */}
+        {isAdmin && (
+          <Box>
+            <ListItemButton
+              onClick={() => handleToggleSubmenu("admin")}
+              sx={{
+                borderRadius: 2,
+                mx: 1,
+                mb: 0.5,
+                color: "text.primary",
+                fontWeight: 500,
+                transition: "background 0.2s",
+                justifyContent: "flex-start",
+                "&:hover": {
+                  backgroundColor: theme.palette.action.hover,
+                },
+              }}
+            >
+              <ListItemText primary={t("nav.admin")} />
+              {openSubmenu === "admin" ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ListItemButton>
+            <Collapse in={openSubmenu === "admin"} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {ADMIN_ITEMS.map((item) => (
+                  <ListItemButton
+                    key={item.label}
+                    component={Link}
+                    to={item.href || "#"}
+                    sx={{
+                      pl: 5,
+                      borderRadius: 2,
+                      mx: 1,
+                      mb: 0.5,
+                      color:
+                        activeRoute === item.href
+                          ? "primary.main"
+                          : "text.primary",
+                      backgroundColor:
+                        activeRoute === item.href
+                          ? theme.palette.action.selected
+                          : "transparent",
+                      fontWeight: activeRoute === item.href ? 700 : 500,
+                      transition: "background 0.2s",
+                      "&:hover": {
+                        backgroundColor: theme.palette.action.hover,
+                      },
+                    }}
+                  >
+                    <ListItemText primary={t(item.label)} />
+                  </ListItemButton>
+                ))}
+              </List>
+            </Collapse>
+          </Box>
         )}
       </List>
     </Box>
