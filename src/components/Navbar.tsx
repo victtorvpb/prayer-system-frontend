@@ -34,18 +34,7 @@ interface NavItem {
   children?: Array<NavItem>;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-  { label: "nav.home", href: "/" },
-  { label: "nav.prayers", href: "/oracoes" },
-  {
-    label: "nav.community",
-    children: [
-      { label: "nav.prayerGroups", href: "/grupos" },
-      { label: "nav.events", href: "/eventos" },
-    ],
-  },
-  { label: "nav.about", href: "/sobre" },
-];
+const NAV_ITEMS: Array<NavItem> = [{ label: "nav.home", href: "/" }];
 
 // Adicionando as rotas administrativas
 const ADMIN_ITEMS: Array<NavItem> = [
